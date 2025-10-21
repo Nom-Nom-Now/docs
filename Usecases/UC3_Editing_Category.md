@@ -17,7 +17,35 @@ This use case allows a user to edit a category.
 - User changes something at the category
 
 ### Activity Diagram
-![Activity Diagram](../activity_diagrams/UCD3_Session_Overview.png)
+```mermaid
+sequenceDiagram
+    actor User
+    participant FE as Frontend (Vue.js)
+    participant BE as Backend (Spring Boot)
+    participant DB as Database (PostgreSQL)
+
+    User->>FE: Open App (Dashboard loads)
+    FE->>BE: GET /api/categories
+    BE->>DB: SELECT * FROM categories
+    DB-->>BE: Return category list
+    BE-->>FE: Send category list (JSON)
+    FE-->>User: Display categories on dashboard
+
+    User->>FE: Select a category to edit
+    FE->>BE: GET /api/categories/{id}
+    BE->>DB: SELECT * FROM categories WHERE id = {id}
+    DB-->>BE: Return category details
+    BE-->>FE: Send category details (JSON)
+    FE-->>User: Show editable form with current data
+
+    User->>FE: Modify category fields\n(name, description, etc.)
+    User->>FE: Click "Save changes"
+    FE->>BE: PUT /api/categories/{id} { updatedData }
+    BE->>DB: UPDATE categories SET ... WHERE id = {id}
+    DB-->>BE: Update confirmation
+    BE-->>FE: Return success response (200 OK)
+    FE-->>User: Show success message\nand updated category view
+```
 
 ## 2.2 Alternative Flows
 n/a

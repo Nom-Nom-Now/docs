@@ -16,7 +16,36 @@ This use case allows a user to edit a existing recipe.
 - User changes something at the recipe
 
 ### Activity Diagram
-![Activity Diagram](../activity_diagrams/UCD3_Session_Overview.png)
+```mermaid
+sequenceDiagram
+    actor User
+    participant FE as Frontend (Vue.js)
+    participant BE as Backend (Spring Boot)
+    participant DB as Database (PostgreSQL)
+
+    User->>FE: Open App (Dashboard loads)
+    FE->>BE: GET /api/recipes
+    BE->>DB: SELECT * FROM recipes
+    DB-->>BE: Return list of recipes
+    BE-->>FE: Send recipe list (JSON)
+    FE-->>User: Display all recipes
+
+    User->>FE: Select recipe to edit
+    FE->>BE: GET /api/recipes/{id}
+    BE->>DB: SELECT * FROM recipes WHERE id = {id}
+    DB-->>BE: Return recipe details
+    BE-->>FE: Send recipe data (JSON)
+    FE-->>User: Display editable recipe form
+
+    User->>FE: Modify recipe fields\n(name, ingredients, steps, etc.)
+    User->>FE: Click "Save changes"
+    FE->>BE: PUT /api/recipes/{id} { updatedRecipeData }
+    BE->>BE: Validate data and process update
+    BE->>DB: UPDATE recipes SET ... WHERE id = {id}
+    DB-->>BE: Confirm update
+    BE-->>FE: 200 OK (updated recipe)
+    FE-->>User: Show success message\nand updated recipe view
+```
 
 ## 2.2 Alternative Flows
 n/a

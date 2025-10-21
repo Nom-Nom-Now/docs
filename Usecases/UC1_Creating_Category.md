@@ -16,7 +16,23 @@ This use case allows a user to create a category of food.
 - User inputs the Category data and presses create
 
 ### Activity Diagram
-![Activity Diagram](../activity_diagrams/UCD3_Session_Overview.png)
+
+```mermaid
+sequenceDiagram
+    actor User
+    participant FE as Frontend (Vue.js)
+    participant BE as Backend (Spring Boot)
+    participant DB as Database (PostgreSQL)
+
+    User->>FE: Open "Create Category" page
+    FE->>User: Show creation form
+    User->>FE: Fill form and click "Create"
+    FE->>BE: POST /api/categories { name, description }
+    BE->>DB: Insert new category
+    DB-->>BE: Return ID
+    BE-->>FE: 201 Created + category data
+    FE-->>User: Show success message and update list
+```
 
 ## 2.2 Alternative Flows
 n/a

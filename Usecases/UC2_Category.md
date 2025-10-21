@@ -17,7 +17,27 @@ This use case allows a user to inspect a created category.
 - User sees all recipes of category
 
 ### Activity Diagram
-![Activity Diagram](../activity_diagrams/UCD3_Session_Overview.png)
+```mermaid
+sequenceDiagram
+    actor User
+    participant FE as Frontend (Vue.js)
+    participant BE as Backend (Spring Boot)
+    participant DB as Database (PostgreSQL)
+
+    User->>FE: Open App (Dashboard loads)
+    FE->>BE: GET /api/categories
+    BE->>DB: SELECT * FROM categories
+    DB-->>BE: Return list of categories
+    BE-->>FE: Send category data (JSON)
+    FE-->>User: Display list of categories
+
+    User->>FE: Click on a specific category
+    FE->>BE: GET /api/categories/{id}
+    BE->>DB: SELECT * FROM categories WHERE id = {id}
+    DB-->>BE: Return category details
+    BE-->>FE: Send category details (JSON)
+    FE-->>User: Show category details (name, recipes, etc.)
+```
 
 ## 2.2 Alternative Flows
 n/a

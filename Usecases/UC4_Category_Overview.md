@@ -14,7 +14,20 @@ This use case allows a user to get an overview of all categories.
 - User navigates to the category overview
 
 ### Activity Diagram
-![Activity Diagram](../activity_diagrams/UCD3_Session_Overview.png)
+```mermaid
+sequenceDiagram
+    actor User
+    participant FE as Frontend (Vue.js)
+    participant BE as Backend (Spring Boot)
+    participant DB as Database (PostgreSQL)
+
+    User->>FE: Open App (Dashboard loads)
+    FE->>BE: GET /api/categories
+    BE->>DB: SELECT * FROM categories
+    DB-->>BE: Return list of categories
+    BE-->>FE: Send category data (JSON)
+    FE-->>User: Display list of all categories
+```
 
 ## 2.2 Alternative Flows
 n/a

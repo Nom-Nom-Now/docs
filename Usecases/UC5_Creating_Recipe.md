@@ -17,7 +17,32 @@ This use case allows a user to create a recipe.
 - User clicks on create
 
 ### Activity Diagram
-![Activity Diagram](../activity_diagrams/UCD3_Session_Overview.png)
+```mermaid
+sequenceDiagram
+    actor User
+    participant FE as Frontend (Vue.js)
+    participant BE as Backend (Spring Boot)
+    participant DB as Database (PostgreSQL)
+
+    User->>FE: Open App (Dashboard loads)
+    FE->>BE: GET /api/recipes
+    BE->>DB: SELECT * FROM recipes
+    DB-->>BE: Return list of recipes
+    BE-->>FE: Send recipe data (JSON)
+    FE-->>User: Display recipe overview
+
+    User->>FE: Click "Create New Recipe"
+    FE-->>User: Display recipe creation form
+
+    User->>FE: Enter recipe data\n(name, ingredients, category, steps)
+    User->>FE: Click "Save Recipe"
+    FE->>BE: POST /api/recipes { name, ingredients, category, steps }
+    BE->>BE: Validate input data
+    BE->>DB: INSERT INTO recipes (name, ingredients, category, steps)
+    DB-->>BE: Confirmation (new recipe ID)
+    BE-->>FE: 201 Created + recipe data
+    FE-->>User: Show success message\nand updated recipe list
+```
 
 ## 2.2 Alternative Flows
 n/a

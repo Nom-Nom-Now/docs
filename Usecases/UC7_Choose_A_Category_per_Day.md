@@ -15,7 +15,34 @@ This use case allows a user to see an overview of the week and choose a category
 - User selects the categories for the week
 
 ### Activity Diagram
-![Activity Diagram](../activity_diagrams/UCD3_Session_Overview.png)
+```mermaid
+sequenceDiagram
+    actor User
+    participant FE as Frontend (Vue.js)
+    participant BE as Backend (Spring Boot)
+    participant DB as Database (PostgreSQL)
+
+    User->>FE: Open App (Dashboard loads)
+    FE->>BE: GET /api/weekplan
+    BE->>DB: SELECT * FROM weekplan
+    DB-->>BE: Return current weekplan
+    BE-->>FE: Send weekplan data (JSON)
+    FE-->>User: Display week overview\n(Monday–Sunday with categories)
+
+    User->>FE: Select a day to assign a category
+    FE->>BE: GET /api/categories
+    BE->>DB: SELECT * FROM categories
+    DB-->>BE: Return list of categories
+    BE-->>FE: Send category list (JSON)
+    FE-->>User: Display category selection menu
+
+    User->>FE: Choose category for selected day
+    FE->>BE: PUT /api/weekplan/{day} { categoryId }
+    BE->>DB: UPDATE weekplan SET category_id = {categoryId} WHERE day = {day}
+    DB-->>BE: Confirm update
+    BE-->>FE: 200 OK (updated weekplan)
+    FE-->>User: Show confirmation and updated week overview
+```
 
 ## 2.2 Alternative Flows
 n/a

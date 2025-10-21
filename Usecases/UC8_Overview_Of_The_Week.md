@@ -16,8 +16,28 @@ This use case allows a user to see an overview of the week and the recipes for e
 - User generates the recipes for the week
 
 ### Activity Diagram
-![Activity Diagram](../activity_diagrams/UCD3_Session_Overview.png)
+```mermaid
+sequenceDiagram
+    actor User
+    participant FE as Frontend (Vue.js)
+    participant BE as Backend (Spring Boot)
+    participant DB as Database (PostgreSQL)
 
+    User->>FE: Open App (Dashboard loads)
+    FE->>BE: GET /api/weekplan
+    BE->>DB: SELECT * FROM weekplan
+    DB-->>BE: Return weekplan with assigned categories
+    BE-->>FE: Send weekplan data (JSON)
+    FE-->>User: Display week overview\n(Monday–Sunday with categories)
+
+    loop For each day in week
+        FE->>BE: GET /api/recipes?categoryId={categoryId}
+        BE->>DB: SELECT * FROM recipes WHERE category_id = {categoryId}
+        DB-->>BE: Return recipes for category
+        BE-->>FE: Send recipe data (JSON)
+        FE-->>User: Display recipes for that day
+    end
+```
 ## 2.2 Alternative Flows
 - User navigates to the week overview
 - User selects the categories for every day of the week
