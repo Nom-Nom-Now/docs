@@ -25,23 +25,37 @@ sequenceDiagram
     participant DB as Database (PostgreSQL)
 
     User->>FE: Open App (Dashboard loads)
+    activate FE
     FE->>BE: GET /api/recipes
+    activate BE
     BE->>DB: SELECT * FROM recipes
+    activate DB
     DB-->>BE: Return list of recipes
+    deactivate DB
     BE-->>FE: Send recipe data (JSON)
+    deactivate BE
     FE-->>User: Display recipe overview
+    deactivate FE
 
     User->>FE: Click "Create New Recipe"
+    activate FE
     FE-->>User: Display recipe creation form
+    deactivate FE
 
-    User->>FE: Enter recipe data\n(name, ingredients, category, steps)
+    User->>FE: Enter recipe data (name, ingredients, category, steps)
     User->>FE: Click "Save Recipe"
+    activate FE
     FE->>BE: POST /api/recipes { name, ingredients, category, steps }
+    activate BE
     BE->>BE: Validate input data
     BE->>DB: INSERT INTO recipes (name, ingredients, category, steps)
+    activate DB
     DB-->>BE: Confirmation (new recipe ID)
+    deactivate DB
     BE-->>FE: 201 Created + recipe data
-    FE-->>User: Show success message\nand updated recipe list
+    deactivate BE
+    FE-->>User: Show success message and updated recipe list
+    deactivate FE
 ```
 
 ## 2.2 Alternative Flows

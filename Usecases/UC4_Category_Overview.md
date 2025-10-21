@@ -22,11 +22,17 @@ sequenceDiagram
     participant DB as Database (PostgreSQL)
 
     User->>FE: Open App (Dashboard loads)
+    activate FE
     FE->>BE: GET /api/categories
+    activate BE
     BE->>DB: SELECT * FROM categories
+    activate DB
     DB-->>BE: Return list of categories
+    deactivate DB
     BE-->>FE: Send category data (JSON)
+    deactivate BE
     FE-->>User: Display list of all categories
+    deactivate FE
 ```
 
 ## 2.2 Alternative Flows

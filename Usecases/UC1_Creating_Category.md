@@ -25,13 +25,22 @@ sequenceDiagram
     participant DB as Database (PostgreSQL)
 
     User->>FE: Open "Create Category" page
+    activate FE
     FE->>User: Show creation form
+    deactivate FE
+
     User->>FE: Fill form and click "Create"
+    activate FE
     FE->>BE: POST /api/categories { name, description }
+    activate BE
     BE->>DB: Insert new category
+    activate DB
     DB-->>BE: Return ID
+    deactivate DB
     BE-->>FE: 201 Created + category data
+    deactivate BE
     FE-->>User: Show success message and update list
+    deactivate FE
 ```
 
 ## 2.2 Alternative Flows

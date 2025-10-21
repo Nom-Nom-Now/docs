@@ -24,19 +24,29 @@ sequenceDiagram
     participant DB as Database (PostgreSQL)
 
     User->>FE: Open App (Dashboard loads)
+    activate FE
     FE->>BE: GET /api/weekplan
+    activate BE
     BE->>DB: SELECT * FROM weekplan
+    activate DB
     DB-->>BE: Return weekplan with assigned categories
+    deactivate DB
     BE-->>FE: Send weekplan data (JSON)
-    FE-->>User: Display week overview\n(Monday–Sunday with categories)
+    deactivate BE
+    FE-->>User: Display week overview (Mon–Sun with categories)
 
     loop For each day in week
         FE->>BE: GET /api/recipes?categoryId={categoryId}
+        activate BE
         BE->>DB: SELECT * FROM recipes WHERE category_id = {categoryId}
+        activate DB
         DB-->>BE: Return recipes for category
+        deactivate DB
         BE-->>FE: Send recipe data (JSON)
+        deactivate BE
         FE-->>User: Display recipes for that day
     end
+    deactivate FE
 ```
 ## 2.2 Alternative Flows
 - User navigates to the week overview

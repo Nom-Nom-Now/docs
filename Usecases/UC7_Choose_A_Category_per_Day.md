@@ -23,25 +23,43 @@ sequenceDiagram
     participant DB as Database (PostgreSQL)
 
     User->>FE: Open App (Dashboard loads)
+    activate FE
     FE->>BE: GET /api/weekplan
+    activate BE
     BE->>DB: SELECT * FROM weekplan
+    activate DB
     DB-->>BE: Return current weekplan
+    deactivate DB
     BE-->>FE: Send weekplan data (JSON)
-    FE-->>User: Display week overview\n(Monday–Sunday with categories)
+    deactivate BE
+    FE-->>User: Display week overview (Mon–Sun with categories)
+    deactivate FE
 
     User->>FE: Select a day to assign a category
+    activate FE
     FE->>BE: GET /api/categories
+    activate BE
     BE->>DB: SELECT * FROM categories
+    activate DB
     DB-->>BE: Return list of categories
+    deactivate DB
     BE-->>FE: Send category list (JSON)
+    deactivate BE
     FE-->>User: Display category selection menu
+    deactivate FE
 
     User->>FE: Choose category for selected day
+    activate FE
     FE->>BE: PUT /api/weekplan/{day} { categoryId }
+    activate BE
     BE->>DB: UPDATE weekplan SET category_id = {categoryId} WHERE day = {day}
+    activate DB
     DB-->>BE: Confirm update
+    deactivate DB
     BE-->>FE: 200 OK (updated weekplan)
+    deactivate BE
     FE-->>User: Show confirmation and updated week overview
+    deactivate FE
 ```
 
 ## 2.2 Alternative Flows

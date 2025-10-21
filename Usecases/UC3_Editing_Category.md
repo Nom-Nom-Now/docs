@@ -25,26 +25,44 @@ sequenceDiagram
     participant DB as Database (PostgreSQL)
 
     User->>FE: Open App (Dashboard loads)
+    activate FE
     FE->>BE: GET /api/categories
+    activate BE
     BE->>DB: SELECT * FROM categories
+    activate DB
     DB-->>BE: Return category list
+    deactivate DB
     BE-->>FE: Send category list (JSON)
+    deactivate BE
     FE-->>User: Display categories on dashboard
+    deactivate FE
 
     User->>FE: Select a category to edit
+    activate FE
     FE->>BE: GET /api/categories/{id}
+    activate BE
     BE->>DB: SELECT * FROM categories WHERE id = {id}
+    activate DB
     DB-->>BE: Return category details
+    deactivate DB
     BE-->>FE: Send category details (JSON)
+    deactivate BE
     FE-->>User: Show editable form with current data
+    deactivate FE
 
-    User->>FE: Modify category fields\n(name, description, etc.)
+    User->>FE: Modify category fields (name, description, etc.)
     User->>FE: Click "Save changes"
+    activate FE
     FE->>BE: PUT /api/categories/{id} { updatedData }
+    activate BE
     BE->>DB: UPDATE categories SET ... WHERE id = {id}
+    activate DB
     DB-->>BE: Update confirmation
+    deactivate DB
     BE-->>FE: Return success response (200 OK)
-    FE-->>User: Show success message\nand updated category view
+    deactivate BE
+    FE-->>User: Show success message and updated category view
+    deactivate FE
 ```
 
 ## 2.2 Alternative Flows
