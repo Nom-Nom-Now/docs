@@ -11,37 +11,44 @@ This use case allows a user to inspect a created category.
 # 2. Flow of Events
 
 ## 2.1 Basic Flow
-- User navigates to the dashboard (Dashboard is the main page of our App so it gets displayed after App start automatically)
-- User can see a list of all existing sessions
+- User navigates to the dashboard
+- User navigates to the Category overview
+- User navigates to category
+- User sees all recipes of category
 
 ### Activity Diagram
-![Activity Diagram](../activity_diagrams/UCD3_Session_Overview.png)
+```mermaid
+sequenceDiagram
+    actor User
+    participant FE as Frontend (Vue.js)
+    participant BE as Backend (Spring Boot)
+    participant DB as Database (PostgreSQL)
 
-### .feature File
-[.feature File Session Overview](../../frontend/app/src/androidTest/assets/features/UC3_Session_Overview.feature)
-```Cucumber
-Feature: Use Case 3 Session Overview
-    As a USER
-    I want to open the app and navigate to the Session Overview page
-    On this page I want to see a full overview of all currently available sessions
-    Also I want to see detailed information about the Sessions
+    User->>FE: Open App (Dashboard loads)
+    activate FE
+    FE->>BE: GET /api/categories
+    activate BE
+    BE->>DB: SELECT * FROM categories
+    activate DB
+    DB-->>BE: Return list of categories
+    deactivate DB
+    BE-->>FE: Send category data (JSON)
+    deactivate BE
+    FE-->>User: Display list of categories
+    deactivate FE
 
-  @sessionoverview-feature
-  Scenario Outline: I want to see all current active Sessions
-    Given I open the App
-    When I open the Session Overview page
-    Then The page should list all the current active Sessions
-    And For each Session should the title <title> be shown
-    And For each Session should the game <game> be shown
-    And For each Session should the place <place> be shown
-    And For each Session should the date <date> be shown
-    And For each Session should the players count "<numberOfPlayers>" be shown
-
-    Examples:
-      | title   | game         | place         | date        | numberOfPlayers   |
-      |  Raid   | Wow          |  online       |  01.11.2018 |  10               |
-      |  Mario  | Mario Party  |  online       |  07.07.2018 |  30               |
-      | Fortnite| Battle       |  online       |  25.09.2018 |  40               |
+    User->>FE: Click on a specific category
+    activate FE
+    FE->>BE: GET /api/categories/{id}
+    activate BE
+    BE->>DB: SELECT * FROM categories WHERE id = {id}
+    activate DB
+    DB-->>BE: Return category details
+    deactivate DB
+    BE-->>FE: Send category details (JSON)
+    deactivate BE
+    FE-->>User: Show category details (name, recipes, etc.)
+    deactivate FE
 ```
 
 ## 2.2 Alternative Flows
@@ -53,17 +60,13 @@ n/a
 # 4. Preconditions
 The Preconditions for this use case are:
 1. The user has started the App
-2. The user has navigated to the dashboard (after the startup the dashboard is per default the displayed page)
-3. At least one sessions was alredy posted
+2. The user has navigated to the dashboard
+3. The user has navigated to the category
 
 # 5. Postconditions
 n/a
 
 ### 5.1 Save changes / Sync with server
-The displayed data should be updated whenever the user enters the dashboard again or when the user refreshes the page manually.
-
-# 6. Function Points
-![Function Points UC3_Session_Overview](../function_points/UC3_Overview.png)
-<img src="../function_points/Blue_print.png" alt="Function Points Blue_Print" width="500"/>
-
-Total number of function points: 9.52
+n/a
+# 6. Story Points
+3

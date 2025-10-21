@@ -11,37 +11,36 @@ This use case allows a user to create a category of food.
 # 2. Flow of Events
 
 ## 2.1 Basic Flow
-- User navigates to the dashboard (Dashboard is the main page of our App so it gets displayed after App start automatically)
-- User can see a list of all existing sessions
+- User navigates to the Category overview
+- The user clicks on the button create
+- User inputs the Category data and presses create
 
 ### Activity Diagram
-![Activity Diagram](../activity_diagrams/UCD3_Session_Overview.png)
 
-### .feature File
-[.feature File Session Overview](../../frontend/app/src/androidTest/assets/features/UC3_Session_Overview.feature)
-```Cucumber
-Feature: Use Case 3 Session Overview
-    As a USER
-    I want to open the app and navigate to the Session Overview page
-    On this page I want to see a full overview of all currently available sessions
-    Also I want to see detailed information about the Sessions
+```mermaid
+sequenceDiagram
+    actor User
+    participant FE as Frontend (Vue.js)
+    participant BE as Backend (Spring Boot)
+    participant DB as Database (PostgreSQL)
 
-  @sessionoverview-feature
-  Scenario Outline: I want to see all current active Sessions
-    Given I open the App
-    When I open the Session Overview page
-    Then The page should list all the current active Sessions
-    And For each Session should the title <title> be shown
-    And For each Session should the game <game> be shown
-    And For each Session should the place <place> be shown
-    And For each Session should the date <date> be shown
-    And For each Session should the players count "<numberOfPlayers>" be shown
+    User->>FE: Open "Create Category" page
+    activate FE
+    FE->>User: Show creation form
+    deactivate FE
 
-    Examples:
-      | title   | game         | place         | date        | numberOfPlayers   |
-      |  Raid   | Wow          |  online       |  01.11.2018 |  10               |
-      |  Mario  | Mario Party  |  online       |  07.07.2018 |  30               |
-      | Fortnite| Battle       |  online       |  25.09.2018 |  40               |
+    User->>FE: Fill form and click "Create"
+    activate FE
+    FE->>BE: POST /api/categories { name, description }
+    activate BE
+    BE->>DB: Insert new category
+    activate DB
+    DB-->>BE: Return ID
+    deactivate DB
+    BE-->>FE: 201 Created + category data
+    deactivate BE
+    FE-->>User: Show success message and update list
+    deactivate FE
 ```
 
 ## 2.2 Alternative Flows
@@ -52,18 +51,15 @@ n/a
 
 # 4. Preconditions
 The Preconditions for this use case are:
-1. The user has started the App
-2. The user has navigated to the dashboard (after the startup the dashboard is per default the displayed page)
-3. At least one sessions was alredy posted
-
+1. The user startet the App
+2. The user has navigated to the category overview
+3. The category does not already exist
 # 5. Postconditions
-n/a
+The Postconditions for this use case are:
+1. The user wants to see the overview
+2. The user wants to be able to use and see the new category
 
 ### 5.1 Save changes / Sync with server
-The displayed data should be updated whenever the user enters the dashboard again or when the user refreshes the page manually.
-
-# 6. Function Points
-![Function Points UC3_Session_Overview](../function_points/UC3_Overview.png)
-<img src="../function_points/Blue_print.png" alt="Function Points Blue_Print" width="500"/>
-
-Total number of function points: 9.52
+The category should be saved in the DB
+# 6. Story Points
+Storie Points: 4

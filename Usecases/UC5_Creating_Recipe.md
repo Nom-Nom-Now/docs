@@ -11,59 +11,70 @@ This use case allows a user to create a recipe.
 # 2. Flow of Events
 
 ## 2.1 Basic Flow
-- User navigates to the dashboard (Dashboard is the main page of our App so it gets displayed after App start automatically)
-- User can see a list of all existing sessions
+- User navigates to the overview of a single category
+- User clicks on the "new" button
+- User fills out the create recipe form
+- User clicks on create
 
 ### Activity Diagram
-![Activity Diagram](../activity_diagrams/UCD3_Session_Overview.png)
+```mermaid
+sequenceDiagram
+    actor User
+    participant FE as Frontend (Vue.js)
+    participant BE as Backend (Spring Boot)
+    participant DB as Database (PostgreSQL)
 
-### .feature File
-[.feature File Session Overview](../../frontend/app/src/androidTest/assets/features/UC3_Session_Overview.feature)
-```Cucumber
-Feature: Use Case 3 Session Overview
-    As a USER
-    I want to open the app and navigate to the Session Overview page
-    On this page I want to see a full overview of all currently available sessions
-    Also I want to see detailed information about the Sessions
+    User->>FE: Open App (Dashboard loads)
+    activate FE
+    FE->>BE: GET /api/recipes
+    activate BE
+    BE->>DB: SELECT * FROM recipes
+    activate DB
+    DB-->>BE: Return list of recipes
+    deactivate DB
+    BE-->>FE: Send recipe data (JSON)
+    deactivate BE
+    FE-->>User: Display recipe overview
+    deactivate FE
 
-  @sessionoverview-feature
-  Scenario Outline: I want to see all current active Sessions
-    Given I open the App
-    When I open the Session Overview page
-    Then The page should list all the current active Sessions
-    And For each Session should the title <title> be shown
-    And For each Session should the game <game> be shown
-    And For each Session should the place <place> be shown
-    And For each Session should the date <date> be shown
-    And For each Session should the players count "<numberOfPlayers>" be shown
+    User->>FE: Click "Create New Recipe"
+    activate FE
+    FE-->>User: Display recipe creation form
+    deactivate FE
 
-    Examples:
-      | title   | game         | place         | date        | numberOfPlayers   |
-      |  Raid   | Wow          |  online       |  01.11.2018 |  10               |
-      |  Mario  | Mario Party  |  online       |  07.07.2018 |  30               |
-      | Fortnite| Battle       |  online       |  25.09.2018 |  40               |
+    User->>FE: Enter recipe data (name, ingredients, category, steps)
+    User->>FE: Click "Save Recipe"
+    activate FE
+    FE->>BE: POST /api/recipes { name, ingredients, category, steps }
+    activate BE
+    BE->>BE: Validate input data
+    BE->>DB: INSERT INTO recipes (name, ingredients, category, steps)
+    activate DB
+    DB-->>BE: Confirmation (new recipe ID)
+    deactivate DB
+    BE-->>FE: 201 Created + recipe data
+    deactivate BE
+    FE-->>User: Show success message and updated recipe list
+    deactivate FE
 ```
 
 ## 2.2 Alternative Flows
 n/a
 
 # 3. Special Requirements
-n/a
+One Recipe can be connected to multiple categories.
 
 # 4. Preconditions
 The Preconditions for this use case are:
 1. The user has started the App
-2. The user has navigated to the dashboard (after the startup the dashboard is per default the displayed page)
-3. At least one sessions was alredy posted
+2. The user has created a category
 
 # 5. Postconditions
-n/a
+The Postconditions for this use case are:
+1. The new recipe is saved
 
 ### 5.1 Save changes / Sync with server
-The displayed data should be updated whenever the user enters the dashboard again or when the user refreshes the page manually.
+The new recipe is saved in the DB.
 
-# 6. Function Points
-![Function Points UC3_Session_Overview](../function_points/UC3_Overview.png)
-<img src="../function_points/Blue_print.png" alt="Function Points Blue_Print" width="500"/>
-
-Total number of function points: 9.52
+# 6. Story Points
+6

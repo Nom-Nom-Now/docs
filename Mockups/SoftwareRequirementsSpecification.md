@@ -73,10 +73,8 @@ Nom Nom Now is a web-based application designed for meal planning. Its goal is t
 
 ### 2.2 Use Case Diagram
 
-![OUCD][OUCD]
+![OUCD](./UseCaseDiagram.png)
 
-- Green: Planned till end of december
-- Yellow: Planned till end of june
 
 ### 2.3 Technology Stack
 The technology we use is:
@@ -232,5 +230,3 @@ The Team Members are:
 - Robin Fischer
 - Silas Scholler
 
-<!-- Picture-Link definitions: -->
-[OUCD]: https://github.com/IB-KA/CommonPlayground/blob/master/UseCaseDiagramCP.png "Overall Use Case Diagram"
