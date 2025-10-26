@@ -14,7 +14,7 @@ This use case allows a user to see an overview of the week and choose a category
 - User navigates to the overview
 - User selects the categories for the week
 
-### Activity Diagram
+### Sequence Diagram
 ```mermaid
 sequenceDiagram
     actor User
@@ -61,6 +61,52 @@ sequenceDiagram
     FE-->>User: Show confirmation and updated week overview
     deactivate FE
 ```
+### Activity Diagram
+```mermaid
+flowchart LR
+  subgraph UI [Frontend Vue]
+    direction TB
+    UC7_UI_S[Start]
+    UC7_UI_A[Wochenuebersicht oeffnen]
+    UC7_UI_B[Weekplan laden]
+    UC7_UI_C{Alle Tage gesetzt}
+    UC7_UI_D[Tag auswaehlen]
+    UC7_UI_E[Kategorie Auswahl oeffnen]
+    UC7_UI_F[Kategorie waehlen]
+    UC7_UI_G[Uebersicht anzeigen]
+    UC7_UI_Z[Ende]
+  end
+
+  subgraph CTRL [WeekPlan Controller]
+    direction TB
+    UC7_CT_A[API getWeek]
+    UC7_CT_B[API setCategoryForDay]
+    UC7_CT_C[Antwort 200]
+  end
+
+  subgraph SVC [WeekPlan Service]
+    direction TB
+    UC7_SV_A[getOrCreateWeek]
+    UC7_SV_B[setCategoryForDay]
+  end
+
+  subgraph REPO [WeekPlan Repository]
+    direction TB
+    UC7_RP_A[findByStart]
+    UC7_RP_B[save week]
+  end
+
+  subgraph DB [Postgres DB]
+    direction TB
+    UC7_DB_A[(table week_plans)]
+  end
+
+  UC7_UI_S --> UC7_UI_A --> UC7_CT_A --> UC7_SV_A --> UC7_RP_A --> UC7_DB_A --> UC7_UI_B --> UC7_UI_C
+  UC7_UI_C -- Ja   --> UC7_UI_G --> UC7_UI_Z
+  UC7_UI_C -- Nein --> UC7_UI_D --> UC7_UI_E --> UC7_UI_F --> UC7_CT_B --> UC7_SV_B --> UC7_RP_B --> UC7_DB_A --> UC7_CT_C --> UC7_UI_A
+
+```
+
 
 ## 2.2 Alternative Flows
 n/a

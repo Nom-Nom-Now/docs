@@ -15,7 +15,7 @@ This use case allows a user to create a category of food.
 - The user clicks on the button create
 - User inputs the Category data and presses create
 
-### Activity Diagram
+### Sequence Diagram
 
 ```mermaid
 sequenceDiagram
@@ -43,6 +43,55 @@ sequenceDiagram
     deactivate FE
 ```
 
+### Activity Diagram
+
+```mermaid
+flowchart LR
+  subgraph UI [Frontend Vue]
+    direction TB
+    UC1_UI_S[Start]
+    UC1_UI_A[Kategorie Uebersicht oeffnen]
+    UC1_UI_B[Create klicken]
+    UC1_UI_C[Formular ausfuellen]
+    UC1_UI_D[Formular absenden]
+    UC1_UI_E[Validierungsfehler anzeigen]
+    UC1_UI_F[Erfolg anzeigen und Liste aktualisieren]
+    UC1_UI_Z[Ende]
+  end
+
+  subgraph CTRL [Category Controller]
+    direction TB
+    UC1_CT_A[API createCategory]
+    UC1_CT_B{Eingaben valide}
+    UC1_CT_C[Antwort 400]
+    UC1_CT_D[Antwort 409]
+    UC1_CT_E[Antwort 201]
+  end
+
+  subgraph SVC [Category Service]
+    direction TB
+    UC1_SV_A{Kategorie existiert}
+    UC1_SV_B[create dto]
+  end
+
+  subgraph REPO [Category Repository]
+    direction TB
+    UC1_RP_A[save entity]
+  end
+
+  subgraph DB [Postgres DB]
+    direction TB
+    UC1_DB_A[(table categories)]
+  end
+
+  UC1_UI_S --> UC1_UI_A --> UC1_UI_B --> UC1_UI_C --> UC1_UI_D --> UC1_CT_A
+  UC1_CT_A --> UC1_CT_B
+  UC1_CT_B -- Nein --> UC1_CT_C --> UC1_UI_E --> UC1_UI_C
+  UC1_CT_B -- Ja --> UC1_SV_A
+  UC1_SV_A -- Ja --> UC1_CT_D --> UC1_UI_C
+  UC1_SV_A -- Nein --> UC1_SV_B --> UC1_RP_A --> UC1_DB_A --> UC1_CT_E --> UC1_UI_F --> UC1_UI_Z
+
+```
 ## 2.2 Alternative Flows
 n/a
 

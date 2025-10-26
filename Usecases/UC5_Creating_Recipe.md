@@ -16,7 +16,7 @@ This use case allows a user to create a recipe.
 - User fills out the create recipe form
 - User clicks on create
 
-### Activity Diagram
+### Sequence Diagram
 ```mermaid
 sequenceDiagram
     actor User
@@ -57,7 +57,50 @@ sequenceDiagram
     FE-->>User: Show success message and updated recipe list
     deactivate FE
 ```
+### Activity Diagram
+```mermaid
+flowchart LR
+  subgraph UI [Frontend Vue]
+    direction TB
+    UC5_UI_S[Start]
+    UC5_UI_A[Kategorie Detail oeffnen]
+    UC5_UI_B[New Recipe klicken]
+    UC5_UI_C[Formular ausfuellen]
+    UC5_UI_D[Save klicken]
+    UC5_UI_E[Validierungsfehler anzeigen]
+    UC5_UI_F[Erfolg anzeigen und Liste aktualisieren]
+    UC5_UI_Z[Ende]
+  end
 
+  subgraph CTRL [Recipe Controller]
+    direction TB
+    UC5_CT_A[API createRecipe]
+    UC5_CT_B{Eingaben valide}
+    UC5_CT_C[Antwort 400]
+    UC5_CT_D[Antwort 201]
+  end
+
+  subgraph SVC [Recipe Service]
+    direction TB
+    UC5_SV_A[create dto]
+  end
+
+  subgraph REPO [Recipe Repository]
+    direction TB
+    UC5_RP_A[save entity]
+  end
+
+  subgraph DB [Postgres DB]
+    direction TB
+    UC5_DB_A[(table recipes)]
+  end
+
+  UC5_UI_S --> UC5_UI_A --> UC5_UI_B --> UC5_UI_C --> UC5_UI_D --> UC5_CT_A
+  UC5_CT_A --> UC5_CT_B
+  UC5_CT_B -- Nein --> UC5_CT_C --> UC5_UI_E --> UC5_UI_C
+  UC5_CT_B -- Ja   --> UC5_SV_A --> UC5_RP_A --> UC5_DB_A --> UC5_CT_D --> UC5_UI_F --> UC5_UI_Z
+
+```
 ## 2.2 Alternative Flows
 n/a
 
