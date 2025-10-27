@@ -15,7 +15,7 @@ This use case allows a user to edit a existing recipe.
 - User right clicks a recipe to edit it
 - User changes something at the recipe
 
-### Activity Diagram
+### Sequence Diagram
 ```mermaid
 sequenceDiagram
     actor User
@@ -64,7 +64,52 @@ sequenceDiagram
     FE-->>User: Show success message and updated recipe view
     deactivate FE
 ```
+### Activity Diagram
+```mermaid
+flowchart LR
+  subgraph UI [Frontend Vue]
+    direction TB
+    UC6_UI_S[Start]
+    UC6_UI_A[Kategorie Detail oeffnen]
+    UC6_UI_B[Rezeptliste anzeigen]
+    UC6_UI_C[Rezept bearbeiten auswaehlen]
+    UC6_UI_D[Formular mit aktuellen Daten]
+    UC6_UI_E[Felder aendern]
+    UC6_UI_F[Save changes klicken]
+    UC6_UI_G[Validierungsfehler anzeigen]
+    UC6_UI_I[Erfolg anzeigen und aktualisieren]
+    UC6_UI_Z[Ende]
+  end
 
+  subgraph CTRL [Recipe Controller]
+    direction TB
+    UC6_CT_A[API updateRecipe]
+    UC6_CT_B{Eingaben valide}
+    UC6_CT_C[Antwort 400]
+    UC6_CT_D[Antwort 200]
+  end
+
+  subgraph SVC [Recipe Service]
+    direction TB
+    UC6_SV_A[update id dto]
+  end
+
+  subgraph REPO [Recipe Repository]
+    direction TB
+    UC6_RP_A[save entity]
+  end
+
+  subgraph DB [Postgres DB]
+    direction TB
+    UC6_DB_A[(table recipes)]
+  end
+
+  UC6_UI_S --> UC6_UI_A --> UC6_UI_B --> UC6_UI_C --> UC6_UI_D --> UC6_UI_E --> UC6_UI_F --> UC6_CT_A
+  UC6_CT_A --> UC6_CT_B
+  UC6_CT_B -- Nein --> UC6_CT_C --> UC6_UI_G --> UC6_UI_E
+  UC6_CT_B -- Ja   --> UC6_SV_A --> UC6_RP_A --> UC6_DB_A --> UC6_CT_D --> UC6_UI_I --> UC6_UI_Z
+
+```
 ## 2.2 Alternative Flows
 n/a
 

@@ -16,7 +16,7 @@ This use case allows a user to inspect a created category.
 - User navigates to category
 - User sees all recipes of category
 
-### Activity Diagram
+### Sequence Diagram
 ```mermaid
 sequenceDiagram
     actor User
@@ -50,7 +50,52 @@ sequenceDiagram
     FE-->>User: Show category details (name, recipes, etc.)
     deactivate FE
 ```
+### Activity Diagramm
+```mermaid
 
+flowchart LR
+  subgraph UI [Frontend Vue]
+    direction TB
+    UC2_UI_S[Start]
+    UC2_UI_A[Dashboard oeffnen]
+    UC2_UI_B[Kategorien Uebersicht oeffnen]
+    UC2_UI_C[Kategorie auswaehlen]
+    UC2_UI_D[Details View oeffnen]
+    UC2_UI_E[Fehler anzeigen Not Found]
+    UC2_UI_F[Details anzeigen]
+    UC2_UI_Z[Ende]
+  end
+
+  subgraph CTRL [Category Controller]
+    direction TB
+    UC2_CT_A[API getCategoryById]
+    UC2_CT_B{Gefunden}
+    UC2_CT_C[Antwort 404]
+    UC2_CT_D[Antwort 200]
+  end
+
+  subgraph SVC [Category Service]
+    direction TB
+    UC2_SV_A[findById]
+  end
+
+  subgraph REPO [Category Repository]
+    direction TB
+    UC2_RP_A[findById]
+  end
+
+  subgraph DB [Postgres DB]
+    direction TB
+    UC2_DB_A[(table categories)]
+  end
+
+  UC2_UI_S --> UC2_UI_A --> UC2_UI_B --> UC2_UI_C --> UC2_UI_D --> UC2_CT_A
+  UC2_CT_A --> UC2_SV_A --> UC2_RP_A --> UC2_DB_A --> UC2_CT_B
+  UC2_CT_B -- Nein --> UC2_CT_C --> UC2_UI_E --> UC2_UI_Z
+  UC2_CT_B -- Ja  --> UC2_CT_D --> UC2_UI_F --> UC2_UI_Z
+
+
+```
 ## 2.2 Alternative Flows
 n/a
 

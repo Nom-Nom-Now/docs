@@ -16,7 +16,7 @@ This use case allows a user to edit a category.
 - User clicks on edit category
 - User changes something at the category
 
-### Activity Diagram
+### Sequence Diagram
 ```mermaid
 sequenceDiagram
     actor User
@@ -64,7 +64,56 @@ sequenceDiagram
     FE-->>User: Show success message and updated category view
     deactivate FE
 ```
+### Activity Diagramm
+```mermaid
+flowchart LR
+  subgraph UI [Frontend Vue]
+    direction TB
+    UC3_UI_S[Start]
+    UC3_UI_A[Kategorien Uebersicht oeffnen]
+    UC3_UI_B[Kategorie auswaehlen]
+    UC3_UI_C[Edit klicken]
+    UC3_UI_D[Formular mit aktuellen Daten]
+    UC3_UI_E[Felder aendern]
+    UC3_UI_F[Save changes klicken]
+    UC3_UI_G[Validierungsfehler anzeigen]
+    UC3_UI_H[Hinweis keine Aenderungen]
+    UC3_UI_I[Erfolg anzeigen und aktualisieren]
+    UC3_UI_Z[Ende]
+  end
 
+  subgraph CTRL [Category Controller]
+    direction TB
+    UC3_CT_A[API updateCategory]
+    UC3_CT_B{Eingaben valide}
+    UC3_CT_C[Antwort 400]
+    UC3_CT_D[Antwort 200]
+  end
+
+  subgraph SVC [Category Service]
+    direction TB
+    UC3_SV_A{Aenderungen vorhanden}
+    UC3_SV_B[update id dto]
+  end
+
+  subgraph REPO [Category Repository]
+    direction TB
+    UC3_RP_A[save entity]
+  end
+
+  subgraph DB [Postgres DB]
+    direction TB
+    UC3_DB_A[(table categories)]
+  end
+
+  UC3_UI_S --> UC3_UI_A --> UC3_UI_B --> UC3_UI_C --> UC3_UI_D --> UC3_UI_E --> UC3_UI_F --> UC3_CT_A
+  UC3_CT_A --> UC3_CT_B
+  UC3_CT_B -- Nein --> UC3_CT_C --> UC3_UI_G --> UC3_UI_E
+  UC3_CT_B -- Ja   --> UC3_SV_A
+  UC3_SV_A -- Nein --> UC3_CT_D --> UC3_UI_H --> UC3_UI_Z
+  UC3_SV_A -- Ja   --> UC3_SV_B --> UC3_RP_A --> UC3_DB_A --> UC3_CT_D --> UC3_UI_I --> UC3_UI_Z
+
+```
 ## 2.2 Alternative Flows
 n/a
 

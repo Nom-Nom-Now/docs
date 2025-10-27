@@ -15,7 +15,7 @@ This use case allows a user to see an overview of the week and the recipes for e
 - User selects the categories for every day of the week
 - User generates the recipes for the week
 
-### Activity Diagram
+### Sequence Diagram
 ```mermaid
 sequenceDiagram
     actor User
@@ -48,6 +48,49 @@ sequenceDiagram
     end
     deactivate FE
 ```
+### Activity Diagram
+```mermaid
+flowchart LR
+  subgraph UI [Frontend Vue]
+    direction TB
+    UC8_UI_S[Start]
+    UC8_UI_A[Wochenuebersicht oeffnen]
+    UC8_UI_B[Weekplan laden und anzeigen]
+    UC8_UI_C{Generate Recipes geklickt}
+    UC8_UI_D[Rezepte der Woche anzeigen und Shopping List anbieten]
+    UC8_UI_Z[Ende]
+  end
+
+  subgraph CTRL [WeekPlan Controller]
+    direction TB
+    UC8_CT_A[API getWeek]
+    UC8_CT_B[API generateWeekRecipes]
+    UC8_CT_C[Antwort 200]
+  end
+
+  subgraph SVC [WeekPlan Service]
+    direction TB
+    UC8_SV_A[getWeek]
+    UC8_SV_B[generateRecipesForWeek]
+  end
+
+  subgraph REPO [WeekPlan Repository]
+    direction TB
+    UC8_RP_A[findByStart]
+    UC8_RP_B[save week with recipes]
+  end
+
+  subgraph DB [Postgres DB]
+    direction TB
+    UC8_DB_A[(table week_plans)]
+  end
+
+  UC8_UI_S --> UC8_UI_A --> UC8_CT_A --> UC8_SV_A --> UC8_RP_A --> UC8_DB_A --> UC8_UI_B --> UC8_UI_C
+  UC8_UI_C -- Nein --> UC8_UI_Z
+  UC8_UI_C -- Ja   --> UC8_CT_B --> UC8_SV_B --> UC8_RP_B --> UC8_DB_A --> UC8_CT_C --> UC8_UI_D --> UC8_UI_Z
+
+```
+
 ## 2.2 Alternative Flows
 - User navigates to the week overview
 - User selects the categories for every day of the week
