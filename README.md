@@ -26,6 +26,16 @@ This README serves as the entry point to all documentation artifacts for the Nom
 - [UCRS1 Creating Category](Use-Case-Realization%20Specification/UCRS1_Creating_Category.md)
 - [UCRS2 Creating Recipe](Use-Case-Realization%20Specification/UCRS2_Creating_Recipe.md)
 
+## Class Diagrams
+- Backend
+  - [Index (split diagrams)](Class-diagrams/backend-diagrams/Backend_Diagrams_Index.md)
+  - [Domain](Class-diagrams/backend-diagrams/Backend_Domain_Class_Diagram.md)
+  - [Services](Class-diagrams/backend-diagrams/Backend_Service_Class_Diagram.md)
+  - [API + DTOs](Class-diagrams/backend-diagrams/Backend_API_Class_Diagram.md)
+  - [Persistence](Class-diagrams/backend-diagrams/Backend_Persistence_Class_Diagram.md)
+- Frontend
+  - [Frontend UML Class Diagram](Class-diagrams/Frontend_Class_Diagram.md)
+
 ## Mockups
 - [Kategorie](Usecases/mockups/Kategorie.png)
 - [Kategorie Erstellen](Usecases/mockups/KategorieErstellen.png)
