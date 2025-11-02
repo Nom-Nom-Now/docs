@@ -34,7 +34,11 @@ This README serves as the entry point to all documentation artifacts for the Nom
   - [API + DTOs](Class-diagrams/backend-diagrams/Backend_API_Class_Diagram.md)
   - [Persistence](Class-diagrams/backend-diagrams/Backend_Persistence_Class_Diagram.md)
 - Frontend
-  - [Frontend UML Class Diagram](Class-diagrams/Frontend_Class_Diagram.md)
+  - [Index (split diagrams)](Class-diagrams/frontend-diagrams/Frontend_Diagrams_Index.md)
+  - [Domain & DTOs](Class-diagrams/frontend-diagrams/Frontend_Domain_Class_Diagram.md)
+  - [Infrastructure](Class-diagrams/frontend-diagrams/Frontend_Infrastructure_Class_Diagram.md)
+  - [Services & Mapping](Class-diagrams/frontend-diagrams/Frontend_Service_Class_Diagram.md)
+  - [State & UI](Class-diagrams/frontend-diagrams/Frontend_State_UI_Class_Diagram.md)
 
 ## Mockups
 - [Kategorie](Usecases/mockups/Kategorie.png)
