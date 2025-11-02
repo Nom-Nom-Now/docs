@@ -7,14 +7,14 @@ direction TB
 class CategoryController {
   +getCategories(): List~CategoryDto~
   +getCategoryById(id: UUID): CategoryDto
-  +createCategory(dto: CategoryCreateDto): CategoryDto
-  +updateCategory(id: UUID, dto: CategoryUpdateDto): CategoryDto
+  +createCategory(dto: CategoryRequestDto): CategoryDto
+  +updateCategory(id: UUID, dto: CategoryRequestDto): CategoryDto
 }
 class RecipeController {
   +getRecipes(): List~RecipeDto~
   +getRecipeById(id: UUID): RecipeDto
-  +createRecipe(dto: RecipeCreateDto): RecipeDto
-  +updateRecipe(id: UUID, dto: RecipeUpdateDto): RecipeDto
+  +createRecipe(dto: RecipeRequestDto): RecipeDto
+  +updateRecipe(id: UUID, dto: RecipeRequestDto): RecipeDto
 }
 class WeekPlanController {
   +getWeekPlan(weekStart: LocalDate): WeekPlanDto
@@ -33,8 +33,7 @@ class WeekPlanService { <<interface>> }
 class AuthService { <<interface>> }
 
 class CategoryDto { +id: UUID, +name: String, +description: String }
-class CategoryCreateDto { +name: String, +description: String }
-class CategoryUpdateDto { +name: String, +description: String }
+class CategoryRequestDto { +name: String, +description: String }
 
 class IngredientDto { +name: String, +amount: String, +unit: String }
 class StepDto { +order: int, +text: String }
@@ -47,13 +46,7 @@ class RecipeDto {
   +steps: List~StepDto~
   +categoryIds: List~UUID~
 }
-class RecipeCreateDto {
-  +name: String
-  +ingredients: List~IngredientDto~
-  +steps: List~StepDto~
-  +categoryIds: List~UUID~
-}
-class RecipeUpdateDto {
+class RecipeRequestDto {
   +name: String
   +ingredients: List~IngredientDto~
   +steps: List~StepDto~
@@ -74,11 +67,9 @@ WeekPlanController --> WeekPlanService
 AuthController --> AuthService
 
 CategoryController ..> CategoryDto
-CategoryController ..> CategoryCreateDto
-CategoryController ..> CategoryUpdateDto
+CategoryController ..> CategoryRequestDto
 RecipeController ..> RecipeDto
-RecipeController ..> RecipeCreateDto
-RecipeController ..> RecipeUpdateDto
+RecipeController ..> RecipeRequestDto
 WeekPlanController ..> WeekPlanDto
 AuthController ..> RegisterDto
 AuthController ..> LoginDto
