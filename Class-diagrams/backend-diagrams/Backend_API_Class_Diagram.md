@@ -48,6 +48,7 @@ class RecipeDto {
 }
 class RecipeRequestDto {
   +name: String
+  +description: String
   +ingredients: List~IngredientDto~
   +steps: List~StepDto~
   +categoryIds: List~UUID~
