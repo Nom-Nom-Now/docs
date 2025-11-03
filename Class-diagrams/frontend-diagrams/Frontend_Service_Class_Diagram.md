@@ -8,43 +8,43 @@ class CategoryService {
   <<interface>>
   +loadAll(): Promise~CategoryModel[]~
   +getById(id: string): Promise~CategoryModel~
-  +create(dto: CategoryCreateDto): Promise~CategoryModel~
-  +update(id: string, dto: CategoryUpdateDto): Promise~CategoryModel~
+  +create(dto: CategoryWriteDto): Promise~CategoryModel~
+  +update(id: string, dto: CategoryWriteDto): Promise~CategoryModel~
 }
 
 class CategoryServiceImpl {
   +loadAll(): Promise~CategoryModel[]~
   +getById(id: string): Promise~CategoryModel~
-  +create(dto: CategoryCreateDto): Promise~CategoryModel~
-  +update(id: string, dto: CategoryUpdateDto): Promise~CategoryModel~
+  +create(dto: CategoryWriteDto): Promise~CategoryModel~
+  +update(id: string, dto: CategoryWriteDto): Promise~CategoryModel~
 }
 
 class RecipeService {
   <<interface>>
   +loadAll(): Promise~RecipeModel[]~
   +getById(id: string): Promise~RecipeModel~
-  +create(dto: RecipeCreateDto): Promise~RecipeModel~
-  +update(id: string, dto: RecipeUpdateDto): Promise~RecipeModel~
+  +create(dto: RecipeWriteDto): Promise~RecipeModel~
+  +update(id: string, dto: RecipeWriteDto): Promise~RecipeModel~
 }
 
 class RecipeServiceImpl {
   +loadAll(): Promise~RecipeModel[]~
   +getById(id: string): Promise~RecipeModel~
-  +create(dto: RecipeCreateDto): Promise~RecipeModel~
-  +update(id: string, dto: RecipeUpdateDto): Promise~RecipeModel~
+  +create(dto: RecipeWriteDto): Promise~RecipeModel~
+  +update(id: string, dto: RecipeWriteDto): Promise~RecipeModel~
 }
 
 class WeekPlanService {
   <<interface>>
-  +loadCurrentWeek(): Promise~WeekPlanModel~
-  +setCategoryForDay(day: DayOfWeek, categoryId: string): Promise~WeekPlanModel~
-  +generateWeek(): Promise~WeekPlanModel~
+  +loadWeek(weekStart: string): Promise~WeekPlanModel~
+  +setCategoryForDay(weekStart: string, day: DayOfWeek, categoryId: string): Promise~WeekPlanModel~
+  +generateWeek(weekStart: string): Promise~WeekPlanModel~
 }
 
 class WeekPlanServiceImpl {
-  +loadCurrentWeek(): Promise~WeekPlanModel~
-  +setCategoryForDay(day: DayOfWeek, categoryId: string): Promise~WeekPlanModel~
-  +generateWeek(): Promise~WeekPlanModel~
+  +loadWeek(weekStart: string): Promise~WeekPlanModel~
+  +setCategoryForDay(weekStart: string, day: DayOfWeek, categoryId: string): Promise~WeekPlanModel~
+  +generateWeek(weekStart: string): Promise~WeekPlanModel~
 }
 
 class AuthService {
@@ -61,13 +61,13 @@ class AuthServiceImpl {
 }
 
 class CategoryValidator {
-  +validateCreate(dto: CategoryCreateDto)
-  +validateUpdate(dto: CategoryUpdateDto)
+  +validateCreate(dto: CategoryWriteDto)
+  +validateUpdate(dto: CategoryWriteDto)
 }
 
 class RecipeValidator {
-  +validateCreate(dto: RecipeCreateDto)
-  +validateUpdate(dto: RecipeUpdateDto)
+  +validateCreate(dto: RecipeWriteDto)
+  +validateUpdate(dto: RecipeWriteDto)
 }
 
 class CategoryMapper {

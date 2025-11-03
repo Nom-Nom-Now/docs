@@ -42,6 +42,8 @@ class WeekPlan {
 class DayAssignment {
   +id: UUID
   +day: DayOfWeek
+  +category: Category
+  +recipe: Recipe?
 }
 
 class UserAccount {
@@ -70,6 +72,5 @@ Recipe *-- Step
 WeekPlan "1" *-- "7" DayAssignment
 DayAssignment "1" --> "1" Category
 DayAssignment "0..1" --> "1" Recipe
-UserAccount "1" o-- "*" Recipe : owns
 ```
 

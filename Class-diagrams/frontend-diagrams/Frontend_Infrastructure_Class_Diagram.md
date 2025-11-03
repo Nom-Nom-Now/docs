@@ -21,43 +21,43 @@ class CategoryApi {
   <<interface>>
   +list(): Promise~CategoryDto[]~
   +get(id: string): Promise~CategoryDto~
-  +create(dto: CategoryCreateDto): Promise~CategoryDto~
-  +update(id: string, dto: CategoryUpdateDto): Promise~CategoryDto~
+  +create(dto: CategoryWriteDto): Promise~CategoryDto~
+  +update(id: string, dto: CategoryWriteDto): Promise~CategoryDto~
 }
 
 class CategoryApiImpl {
   +list(): Promise~CategoryDto[]~
   +get(id: string): Promise~CategoryDto~
-  +create(dto: CategoryCreateDto): Promise~CategoryDto~
-  +update(id: string, dto: CategoryUpdateDto): Promise~CategoryDto~
+  +create(dto: CategoryWriteDto): Promise~CategoryDto~
+  +update(id: string, dto: CategoryWriteDto): Promise~CategoryDto~
 }
 
 class RecipeApi {
   <<interface>>
   +list(): Promise~RecipeDto[]~
   +get(id: string): Promise~RecipeDto~
-  +create(dto: RecipeCreateDto): Promise~RecipeDto~
-  +update(id: string, dto: RecipeUpdateDto): Promise~RecipeDto~
+  +create(dto: RecipeWriteDto): Promise~RecipeDto~
+  +update(id: string, dto: RecipeWriteDto): Promise~RecipeDto~
 }
 
 class RecipeApiImpl {
   +list(): Promise~RecipeDto[]~
   +get(id: string): Promise~RecipeDto~
-  +create(dto: RecipeCreateDto): Promise~RecipeDto~
-  +update(id: string, dto: RecipeUpdateDto): Promise~RecipeDto~
+  +create(dto: RecipeWriteDto): Promise~RecipeDto~
+  +update(id: string, dto: RecipeWriteDto): Promise~RecipeDto~
 }
 
 class WeekPlanApi {
   <<interface>>
-  +getCurrent(): Promise~WeekPlanDto~
-  +setCategoryForDay(day: DayOfWeek, categoryId: string): Promise~WeekPlanDto~
-  +generateWeek(): Promise~WeekPlanDto~
+  +get(weekStart: string): Promise~WeekPlanDto~
+  +setCategoryForDay(weekStart: string, day: DayOfWeek, categoryId: string): Promise~WeekPlanDto~
+  +generateWeek(weekStart: string): Promise~WeekPlanDto~
 }
 
 class WeekPlanApiImpl {
-  +getCurrent(): Promise~WeekPlanDto~
-  +setCategoryForDay(day: DayOfWeek, categoryId: string): Promise~WeekPlanDto~
-  +generateWeek(): Promise~WeekPlanDto~
+  +get(weekStart: string): Promise~WeekPlanDto~
+  +setCategoryForDay(weekStart: string, day: DayOfWeek, categoryId: string): Promise~WeekPlanDto~
+  +generateWeek(weekStart: string): Promise~WeekPlanDto~
 }
 
 class AuthApi {

@@ -7,14 +7,14 @@ direction TB
 class CategoryController {
   +getCategories(): List~CategoryDto~
   +getCategoryById(id: UUID): CategoryDto
-  +createCategory(dto: CategoryRequestDto): CategoryDto
-  +updateCategory(id: UUID, dto: CategoryRequestDto): CategoryDto
+  +createCategory(dto: CategoryWriteDto): CategoryDto
+  +updateCategory(id: UUID, dto: CategoryWriteDto): CategoryDto
 }
 class RecipeController {
   +getRecipes(): List~RecipeDto~
   +getRecipeById(id: UUID): RecipeDto
-  +createRecipe(dto: RecipeRequestDto): RecipeDto
-  +updateRecipe(id: UUID, dto: RecipeRequestDto): RecipeDto
+  +createRecipe(dto: RecipeWriteDto): RecipeDto
+  +updateRecipe(id: UUID, dto: RecipeWriteDto): RecipeDto
 }
 class WeekPlanController {
   +getWeekPlan(weekStart: LocalDate): WeekPlanDto
@@ -33,7 +33,7 @@ class WeekPlanService { <<interface>> }
 class AuthService { <<interface>> }
 
 class CategoryDto { +id: UUID, +name: String, +description: String }
-class CategoryRequestDto { +name: String, +description: String }
+class CategoryWriteDto { +name: String, +description: String }
 
 class IngredientDto { +name: String, +amount: String, +unit: String }
 class StepDto { +order: int, +text: String }
@@ -42,19 +42,21 @@ class RecipeDto {
   +id: UUID
   +name: String
   +description: String
+  +cookingTime: Duration
   +ingredients: List~IngredientDto~
   +steps: List~StepDto~
   +categoryIds: List~UUID~
 }
-class RecipeRequestDto {
+class RecipeWriteDto {
   +name: String
   +description: String
+  +cookingTime: Duration
   +ingredients: List~IngredientDto~
   +steps: List~StepDto~
   +categoryIds: List~UUID~
 }
 
-class DayAssignmentDto { +day: DayOfWeek, +categoryId: UUID, +recipeId: UUID }
+class DayAssignmentDto { +day: DayOfWeek, +categoryId: UUID, +recipeId: UUID? }
 class WeekPlanDto { +weekStart: LocalDate, +assignments: List~DayAssignmentDto~ }
 
 class RegisterDto { +email: String, +password: String, +displayName: String }
@@ -68,9 +70,9 @@ WeekPlanController --> WeekPlanService
 AuthController --> AuthService
 
 CategoryController ..> CategoryDto
-CategoryController ..> CategoryRequestDto
+CategoryController ..> CategoryWriteDto
 RecipeController ..> RecipeDto
-RecipeController ..> RecipeRequestDto
+RecipeController ..> RecipeWriteDto
 WeekPlanController ..> WeekPlanDto
 AuthController ..> RegisterDto
 AuthController ..> LoginDto

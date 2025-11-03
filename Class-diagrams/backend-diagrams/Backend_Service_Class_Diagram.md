@@ -8,16 +8,16 @@ class CategoryService {
   <<interface>>
   +listCategories(): List~CategoryDto~
   +getCategoryById(id: UUID): CategoryDto
-  +create(dto: CategoryCreateDto): CategoryDto
-  +update(id: UUID, dto: CategoryUpdateDto): CategoryDto
+  +create(dto: CategoryWriteDto): CategoryDto
+  +update(id: UUID, dto: CategoryWriteDto): CategoryDto
 }
 
 class RecipeService {
   <<interface>>
   +listRecipes(): List~RecipeDto~
   +getRecipeById(id: UUID): RecipeDto
-  +create(dto: RecipeCreateDto): RecipeDto
-  +update(id: UUID, dto: RecipeUpdateDto): RecipeDto
+  +create(dto: RecipeWriteDto): RecipeDto
+  +update(id: UUID, dto: RecipeWriteDto): RecipeDto
 }
 
 class WeekPlanService {
@@ -37,14 +37,14 @@ class AuthService {
 class CategoryServiceImpl {
   +listCategories(): List~CategoryDto~
   +getCategoryById(id: UUID): CategoryDto
-  +create(dto: CategoryCreateDto): CategoryDto
-  +update(id: UUID, dto: CategoryUpdateDto): CategoryDto
+  +create(dto: CategoryWriteDto): CategoryDto
+  +update(id: UUID, dto: CategoryWriteDto): CategoryDto
 }
 class RecipeServiceImpl {
   +listRecipes(): List~RecipeDto~
   +getRecipeById(id: UUID): RecipeDto
-  +create(dto: RecipeCreateDto): RecipeDto
-  +update(id: UUID, dto: RecipeUpdateDto): RecipeDto
+  +create(dto: RecipeWriteDto): RecipeDto
+  +update(id: UUID, dto: RecipeWriteDto): RecipeDto
 }
 class WeekPlanServiceImpl {
   +getOrCreateWeek(weekStart: LocalDate): WeekPlanDto
@@ -83,6 +83,8 @@ AuthServiceImpl --> AuthService
 CategoryServiceImpl --> CategoryRepository
 RecipeServiceImpl --> RecipeRepository
 WeekPlanServiceImpl --> WeekPlanRepository
+WeekPlanServiceImpl --> CategoryRepository
+WeekPlanServiceImpl --> RecipeRepository
 AuthServiceImpl --> UserRepository
 
 CategoryServiceImpl --> CategoryValidator

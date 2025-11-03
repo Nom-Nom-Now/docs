@@ -25,6 +25,7 @@ class RecipeModel {
   +id: string
   +name: string
   +description: string
+  +cookingTime: string
   +ingredients: IngredientModel[]
   +steps: StepModel[]
   +categoryIds: string[]
@@ -44,7 +45,7 @@ class DayOfWeek {
 class DayAssignmentModel {
   +day: DayOfWeek
   +categoryId: string
-  +recipeId: string
+  +recipeId: string?
 }
 
 class WeekPlanModel {
@@ -65,12 +66,7 @@ class CategoryDto {
   +description: string
 }
 
-class CategoryCreateDto {
-  +name: string
-  +description: string
-}
-
-class CategoryUpdateDto {
+class CategoryWriteDto {
   +name: string
   +description: string
 }
@@ -90,20 +86,16 @@ class RecipeDto {
   +id: string
   +name: string
   +description: string
+  +cookingTime: string
   +ingredients: IngredientDto[]
   +steps: StepDto[]
   +categoryIds: string[]
 }
 
-class RecipeCreateDto {
+class RecipeWriteDto {
   +name: string
-  +ingredients: IngredientDto[]
-  +steps: StepDto[]
-  +categoryIds: string[]
-}
-
-class RecipeUpdateDto {
-  +name: string
+  +description: string
+  +cookingTime: string
   +ingredients: IngredientDto[]
   +steps: StepDto[]
   +categoryIds: string[]
@@ -112,7 +104,7 @@ class RecipeUpdateDto {
 class DayAssignmentDto {
   +day: DayOfWeek
   +categoryId: string
-  +recipeId: string
+  +recipeId: string?
 }
 
 class WeekPlanDto {
@@ -153,7 +145,5 @@ RecipeDto *-- IngredientDto
 RecipeDto *-- StepDto
 WeekPlanDto *-- DayAssignmentDto
 
-UserModel o-- RecipeModel : owns
-UserDto o-- RecipeDto : owns
 ```
 

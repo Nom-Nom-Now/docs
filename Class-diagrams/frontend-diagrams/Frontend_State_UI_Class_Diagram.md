@@ -9,8 +9,8 @@ class CategoryStore {
   +isLoading: boolean
   +loadAll(): Promise~void~
   +getById(id: string): CategoryModel
-  +create(dto: CategoryCreateDto): Promise~void~
-  +update(id: string, dto: CategoryUpdateDto): Promise~void~
+  +create(dto: CategoryWriteDto): Promise~void~
+  +update(id: string, dto: CategoryWriteDto): Promise~void~
 }
 
 class RecipeStore {
@@ -18,15 +18,15 @@ class RecipeStore {
   +isLoading: boolean
   +loadAll(): Promise~void~
   +getById(id: string): RecipeModel
-  +create(dto: RecipeCreateDto): Promise~void~
-  +update(id: string, dto: RecipeUpdateDto): Promise~void~
+  +create(dto: RecipeWriteDto): Promise~void~
+  +update(id: string, dto: RecipeWriteDto): Promise~void~
 }
 
 class WeekPlanStore {
   +week: WeekPlanModel
-  +loadCurrentWeek(): Promise~void~
-  +setCategoryForDay(day: DayOfWeek, categoryId: string): Promise~void~
-  +generateWeek(): Promise~void~
+  +loadWeek(weekStart: string): Promise~void~
+  +setCategoryForDay(weekStart: string, day: DayOfWeek, categoryId: string): Promise~void~
+  +generateWeek(weekStart: string): Promise~void~
 }
 
 class AuthStore {
