@@ -1,6 +1,7 @@
 # Backend Persistence (UML Class Diagram)
 
 ```mermaid
+
 classDiagram
 direction TB
 
@@ -16,7 +17,7 @@ class RecipeRepository {
   +findAll(): List~Recipe~
   +findById(id: UUID): Recipe
   +save(entity: Recipe): Recipe
-  +findByCategoryId(categoryId: UUID): List~Recipe~
+  +findByCategories_Id(categoryId: UUID): List~Recipe~
 }
 class WeekPlanRepository {
   <<interface>>

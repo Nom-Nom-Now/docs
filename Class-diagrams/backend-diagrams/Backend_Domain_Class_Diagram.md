@@ -1,76 +1,80 @@
 # Backend Domain Model (UML Class Diagram)
 
 ```mermaid
+
 classDiagram
 direction TB
 
 class Category {
-  +id: UUID
-  +name: String
-  +description: String
-  +createdAt: Instant
-  +updatedAt: Instant
++id: UUID
++name: String
++description: String
++createdAt: Instant
++updatedAt: Instant
++recipes: Set~Recipe~
 }
 
 class Ingredient {
-  +name: String
-  +amount: String
-  +unit: String
++name: String
++amount: String
++unit: String
 }
 
 class Step {
-  +order: int
-  +text: String
++order: int
++text: String
 }
 
 class Recipe {
-  +id: UUID
-  +name: String
-  +description: String
-  +ingredients: List~Ingredient~
-  +steps: List~Step~
-  +cookingTime: Duration
-  +createdAt: Instant
-  +updatedAt: Instant
++id: UUID
++name: String
++description: String
++ingredients: List~Ingredient~
++steps: List~Step~
++cookingTime: Duration
++createdAt: Instant
++updatedAt: Instant
++categories: Set~Category~
 }
 
 class WeekPlan {
-  +id: UUID
-  +weekStart: LocalDate
++id: UUID
++weekStart: LocalDate
++assignments: List~DayAssignment~
 }
 
 class DayAssignment {
-  +id: UUID
-  +day: DayOfWeek
-  +category: Category
-  +recipe: Recipe?
++id: UUID
++day: DayOfWeek
++category: Category
++recipe: Recipe?
 }
 
 class UserAccount {
-  +id: UUID
-  +email: String
-  +passwordHash: String
-  +displayName: String
-  +roles: Set~String~
-  +createdAt: Instant
++id: UUID
++email: String
++passwordHash: String
++displayName: String
++roles: Set~String~
++createdAt: Instant
 }
 
 class DayOfWeek {
-  <<enumeration>>
-  MON
-  TUE
-  WED
-  THU
-  FRI
-  SAT
-  SUN
+<<enumeration>>
+MON
+TUE
+WED
+THU
+FRI
+SAT
+SUN
 }
 
 Recipe "*" -- "*" Category : categorizes
 Recipe *-- Ingredient
 Recipe *-- Step
 WeekPlan "1" *-- "7" DayAssignment
-DayAssignment "1" --> "1" Category
-DayAssignment "0..1" --> "1" Recipe
+DayAssignment "1" --> "*" Category
+DayAssignment "0..1" -- "*" Recipe
 ```
 
