@@ -100,6 +100,16 @@ Backend:
 
 ## 3. Specific Requirements
 
+### Use Case Table of Contents
+- [UC1 Creating Category](../Usecases/UC1_Creating_Category.md)
+- [UC2 Category](../Usecases/UC2_Category.md)
+- [UC3 Editing Category](../Usecases/UC3_Editing_Category.md)
+- [UC4 Category Overview](../Usecases/UC4_Category_Overview.md)
+- [UC5 Creating Recipe](../Usecases/UC5_Creating_Recipe.md)
+- [UC6 Editing Recipes](../Usecases/UC6_Editing_Recipes.md)
+- [UC7 Choose A Category per Day](../Usecases/UC7_Choose_A_Category_per_Day.md)
+- [UC8 Overview Of The Week](../Usecases/UC8_Overview_Of_The_Week.md)
+
 ### 3.1 Functionality
 This section will explain the different use cases, you could see in the Use Case Diagram, and their functionality.  
 Until December we plan to implement:
@@ -120,11 +130,17 @@ Until June, we want to implement:
 #### 3.1.1 Creating a category
 This feature allows the user to create custom categories to organize recipes. These categories, such as "Vegetarian," "Asian," or "Quick Meals," can then be used to filter recipes and plan the weekly menu.
 
+Related use case specifications: [UC1 Creating Category](../Usecases/UC1_Creating_Category.md), [UC3 Editing Category](../Usecases/UC3_Editing_Category.md).
+
 #### 3.1.2 Getting an overview
 This feature provides the user with a "Weekly Overview" of their meal plan. It will display the planned recipes or daily mottos for each day of the week, helping the user to see their plan at a glance.
 
+Related use case specifications: [UC4 Category Overview](../Usecases/UC4_Category_Overview.md), [UC8 Overview Of The Week](../Usecases/UC8_Overview_Of_The_Week.md).
+
 #### 3.1.3 Add Categories to the overview of the week
 This feature allows the user to assign the previously created categories or "mottos" (e.g., "Asian Day") to specific days in their weekly overview. The app can then use this information to suggest suitable recipes.
+
+Related use case specifications: [UC7 Choose A Category per Day](../Usecases/UC7_Choose_A_Category_per_Day.md), [UC2 Category](../Usecases/UC2_Category.md).
 
 #### 3.1.4 Creating an account
 To save personal recipes, categories and meal plans, the user must be able to create an account. This feature allows a new user to register for the service.
@@ -138,8 +154,12 @@ To protect user privacy, this feature allows a user to securely log out of their
 #### 3.1.7 Creating recipes
 This is a core feature of the application. It enables users to add their own recipes, including details such as ingredients, preparation steps and cooking time, and assign them to categories.
 
+Related use case specification: [UC5 Creating Recipe](../Usecases/UC5_Creating_Recipe.md).
+
 #### 3.1.8 Editing recipes
 This feature allows users to modify their saved recipes. This is useful for adjusting ingredients, refining preparation steps or correcting details.
+
+Related use case specification: [UC6 Editing Recipes](../Usecases/UC6_Editing_Recipes.md).
 
 ### 3.2 Usability
 We plan on designing the user interface as intuitive and self-explanatory as possible to make the user feel as comfortable as possible using the app. Though an FAQ document will be available, it should not be necessary to use it.
@@ -229,4 +249,3 @@ The Team Members are:
 - Rafael Till 
 - Robin Fischer
 - Silas Scholler
-
