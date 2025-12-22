@@ -8,9 +8,10 @@ Version <1.0>
 
 ## Revision History
 
-| Date       | Version | Description                    | Author                        |
-|------------|---------|--------------------------------|-------------------------------|
-| 30.11.2025 | 1.0     | First creation of the document | Dylan O'Reilly, Robin Fischer |
+| Date       | Version | Description                     | Author                        |
+|------------|---------|---------------------------------|-------------------------------|
+| 30.11.2025 | 1.0     | First creation of the document  | Dylan O'Reilly, Robin Fischer |
+| 22.12.2025 | 1.1     | Added Deployment View           |  Robin Fischer |
 
 
 ---
