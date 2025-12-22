@@ -8,11 +8,12 @@ Version <1.0>
 
 ## Revision History
 
-| Date       | Version | Description                    | Author                        |
-|------------|---------|--------------------------------|-------------------------------|
-| 30.11.2025 | 1.0     | First creation of the document | Dylan O'Reilly, Robin Fischer |
+| Date       | Version | Description                     | Author                        |
+|------------|---------|---------------------------------|-------------------------------|
+| 30.11.2025 | 1.0     | First creation of the document  | Dylan O'Reilly, Robin Fischer |
+| 22.12.2025 | 1.1     | Added Deployment View           | Robin Fischer                 |
 
-
+ 
 ---
 
 ## 1. Introduction
@@ -146,7 +147,7 @@ Sequenzdiagramme sind in den einzelnen [Use-Cases](https://github.com/Nom-Nom-No
 
 ## 7. Deployment View
 
-Tbd
+Das Backend wird automatisch als Docker-Image gebaut und in die GitHub Container Registry gepusht; der Build wird bei jedem Push auf main per GitHub Action mit Maven und Buildx ausgelöst. Anschließend verbindet sich derselbe Workflow per SSH mit einem Server, kopiert Docker-Compose-Datei, .env und Flyway-SQLs dorthin und führt dann docker compose pull, DB-Migrationen mit Flyway und docker compose up -d backend aus, um die neue Version zu starten. Für Pull Requests gegen main gibt es einen separaten Workflow, der lediglich baut und Tests via mvn verify ausführt, ohne zu deployen.
 
 ---
 
