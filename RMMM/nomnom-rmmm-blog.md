@@ -4,9 +4,9 @@
 
 | Risk ID | Kategorie | Risiko-Beschreibung | Wahrscheinlichkeit | Auswirkung | Risk Score | Mitigations-Strategie | Indikator | Contingency Plan | Verantwortlich | Status | Zuletzt geändert |
 |---------|-----------|---------------------|-------------------|-----------|-----------|----------------------|-----------|-----------------|---------------|--------|----------------|
-| R-01 | Technisch | **Authentifizierung und Autorisierung** — Google OAuth2 Integration schlägt fehl oder Token-Refresh funktioniert nicht, wodurch authentifizierte Endpunkte nicht erreichbar sind | Mittel | Hoch | **6** | Sicherheitskonfiguration mit Defense-in-Depth: JWT-Token-Validierung, Fallback-Login-Route, Token-Refresh-Mechanismus implementiert; SecurityConfig mit Role-Based Access Control | Login-Rate im Monitoring steigt; Nutzer können nicht auf `/recipes` POST zugreifen; `/auth/me` 401 | OAuth2 deaktivieren und Basic Auth als Fallback bereitstellen; Debug-Logging für Security-Filter aktivieren | Backend-Team | Offen | 2026-04-13 |
-| R-02 | Technisch | **Datenbank-Migrationen** — Flyway-Migrationen schlagen fehl bei Deployment, besonders wenn bereits Daten vorhanden sind (Schema-Changes, Data-Loss) | Mittel | Hoch | **6** | Versionierte Migrationen (V1-V4); `${appUserPassword}`-Placeholder; Migration nur via `docker compose --profile migrate`; Backup-Strategie vor jedem Deployment | Flyway-Migration schlägt fehl im CI/CD; Backend startet nicht; Fehler in Application-Logs | Rollback auf vorherige Migration; `docker compose down -v` und Neustart mit sauberer DB; Manuelle SQL-Korrektur | Backend-Team | Offen | 2026-04-13 |
-| R-03 | Technisch | **API-Konsistenz zwischen Frontend und Backend** — Frontend erwartet DTOs/Endpoints die im Backend noch nicht oder anders implementiert sind; Datentyp-Mismatches (String vs. Long für IDs) | Hoch | Mittel | **6** | DTO-Konventionen dokumentiert; Request/Response-Objekte strikt getrennt; RecipeMapper für Entity↔DTO; Frontend-Service-Layer (`recipeService.ts`) als zentrale API-Schnittstelle | Frontend zeigt Fehler bei API-Calls; TypeScript-Typen stimmen nicht mit Backend überein; 4xx/5xx Errors im Browser-Netzwerk-Tab | API-Doku mit Swagger/OpenAPI generieren; Frontend-Tests mit Mock-API; Pair-Programming bei API-Änderungen | Full-Stack-Team | Offen | 2026-04-13 |
+| R-01 | Technisch | **Authentifizierung und Autorisierung**: Google OAuth2 Integration schlägt fehl oder Token-Refresh funktioniert nicht, wodurch authentifizierte Endpunkte nicht erreichbar sind | Mittel | Hoch | **6** | Sicherheitskonfiguration mit Defense-in-Depth: JWT-Token-Validierung, Fallback-Login-Route, Token-Refresh-Mechanismus implementiert; SecurityConfig mit Role-Based Access Control | Login-Rate im Monitoring steigt; Nutzer können nicht auf `/recipes` POST zugreifen; `/auth/me` 401 | OAuth2 deaktivieren und Basic Auth als Fallback bereitstellen; Debug-Logging für Security-Filter aktivieren | Backend-Team | Offen | 2026-04-13 |
+| R-02 | Technisch | **Datenbank-Migrationen**: Flyway-Migrationen schlagen fehl bei Deployment, besonders wenn bereits Daten vorhanden sind (Schema-Changes, Data-Loss) | Mittel | Hoch | **6** | Versionierte Migrationen (V1-V4); `${appUserPassword}`-Placeholder; Migration nur via `docker compose --profile migrate`; Backup-Strategie vor jedem Deployment | Flyway-Migration schlägt fehl im CI/CD; Backend startet nicht; Fehler in Application-Logs | Rollback auf vorherige Migration; `docker compose down -v` und Neustart mit sauberer DB; Manuelle SQL-Korrektur | Backend-Team | Offen | 2026-04-13 |
+| R-03 | Technisch | **API-Konsistenz zwischen Frontend und Backend**: Frontend erwartet DTOs/Endpoints die im Backend noch nicht oder anders implementiert sind; Datentyp-Mismatches (String vs. Long für IDs) | Hoch | Mittel | **6** | DTO-Konventionen dokumentiert; Request/Response-Objekte strikt getrennt; RecipeMapper für Entity↔DTO; Frontend-Service-Layer (`recipeService.ts`) als zentrale API-Schnittstelle | Frontend zeigt Fehler bei API-Calls; TypeScript-Typen stimmen nicht mit Backend überein; 4xx/5xx Errors im Browser-Netzwerk-Tab | API-Doku mit Swagger/OpenAPI generieren; Frontend-Tests mit Mock-API; Pair-Programming bei API-Änderungen | Full-Stack-Team | Offen | 2026-04-13 |
 
 ---
 
@@ -20,10 +20,10 @@ Die `SecurityConfig.java` (54 Zeilen) steuert, welche Endpunkte öffentlich und 
 
 ### Warum ist es das größte Risiko?
 
-1. **Single Point of Failure** — Ohne funktionierende Auth ist die App halbiert. Nur Rezepte browsen geht noch.
-2. **Externe Abhängigkeit** — Google OAuth2 hängt von externer Infrastruktur ab (Google-Server, API-Quotas, Network). Ausfälle sind nicht kontrollierbar.
-3. **Hohe Komplexität** — OAuth2 beinhaltet Redirect-Flows, JWT-Token-Management, CSRF-Schutz und CORS-Konfiguration. Fehler sind schwer zu debuggen.
-4. **Frontend-Backend-Koordination** — Der Login-Flow erfordert exakte Abstimmung zwischen Vue-Router, Google-Client-Library und Spring Security.
+1. **Single Point of Failure**: Ohne funktionierende Auth ist die App halbiert. Nur Rezepte browsen geht noch.
+2. **Externe Abhängigkeit**: Google OAuth2 hängt von externer Infrastruktur ab (Google-Server, API-Quotas, Network). Ausfälle sind nicht kontrollierbar.
+3. **Hohe Komplexität**: OAuth2 beinhaltet Redirect-Flows, JWT-Token-Management, CSRF-Schutz und CORS-Konfiguration. Fehler sind schwer zu debuggen.
+4. **Frontend-Backend-Koordination**: Der Login-Flow erfordert exakte Abstimmung zwischen Vue-Router, Google-Client-Library und Spring Security.
 
 ### Mitigation Strategy
 
