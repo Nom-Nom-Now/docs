@@ -4,6 +4,7 @@ This README serves as the entry point to all documentation artifacts for the Nom
 
 ## Table of Contents
 - [Software Requirements Specification](#software-requirements-specification)
+- [Test Plan](#test-plan)
 - [Use Case Specifications](#use-case-specifications)
 - [Use Case Realizations](#use-case-realizations)
 - [Mockups](#mockups)
@@ -11,6 +12,9 @@ This README serves as the entry point to all documentation artifacts for the Nom
 ## Software Requirements Specification
 - [Software Requirements Specification](SRS/SoftwareRequirementsSpecification.md)
 - [Use Case Diagram](SRS/UseCaseDiagram.png)
+
+## Test Plan
+- [Test Plan](TestPlan.md)
 
 ## Use Case Specifications
 - [UC1 Creating Category](Usecases/UC1_Creating_Category.md)
