@@ -11,6 +11,7 @@
 | Date | Version | Description | Author |
 |------|---------|-------------|--------|
 | 28/04/2026 | 1.0 | Initial test plan for the current Nom Nom Now frontend and backend iteration | Nom Nom Now Team |
+| 05/05/2026 | 1.1 | Extended test plan: added 25 concrete test cases (TC-001 to TC-025), test schedule, defect severity classification, PUT /recipes/{id} contract | Nom Nom Now Team |
 
 ## Table of Contents
 
@@ -143,6 +144,7 @@ The following software and supporting items are targets for testing:
   - `/plan` weekly plan page.
   - `/recipes` recipe list.
   - `/recipes/create` new recipe flow.
+  - `/recipes/:id/edit` edit existing recipe.
   - `/recipes/oldcreate` legacy recipe form.
   - `/browse/listall` recipe browsing/list page.
 - Components:
@@ -165,7 +167,7 @@ The following software and supporting items are targets for testing:
 
 - Spring Boot application.
 - Controllers:
-  - `RecipeController` (`POST /recipes`, `GET /recipes`, `DELETE /recipes/{id}`)
+  - `RecipeController` (`POST /recipes`, `GET /recipes`, `PUT /recipes/{id}`, `DELETE /recipes/{id}`)
   - `CategoryController` (`GET /categories`)
   - `AuthController` (`GET /auth/me`)
 - Services:
@@ -220,7 +222,61 @@ The following software and supporting items are targets for testing:
 - Smoke tests for the main user journey: login, view recipes, create recipe, view created recipe.
 - API compatibility tests for category and recipe structures.
 
-### 4.2 Outline of Test Exclusions
+### 4.2 Detailed Test Case Specifications
+
+The following table lists concrete test cases for the current iteration. Each test case includes an identifier, description, preconditions, steps, and expected results.
+
+#### 4.2.1 Authentication Tests
+
+| Test Case ID | Description | Priority | Preconditions | Steps | Expected Result |
+|-------------|-------------|----------|---------------|-------|-----------------|
+| TC-001 | Login page renders Google sign-in button | High | App loaded, user not authenticated | 1. Navigate to `/` | Login page with Google sign-in button visible |
+| TC-002 | OAuth redirect works | High | Backend running | 1. Click Google sign-in button | Browser redirects to Google OAuth endpoint |
+| TC-003 | `/auth/me` returns user info when authenticated | High | User logged in | 1. Call `GET /auth/me` | 200 OK with user id, name, email |
+| TC-004 | `/auth/me` rejects unauthenticated requests | High | User not logged in | 1. Call `GET /auth/me` without token | 401 Unauthorized or redirect to login |
+
+#### 4.2.2 Recipe CRUD Tests
+
+| Test Case ID | Description | Priority | Preconditions | Steps | Expected Result |
+|-------------|-------------|----------|---------------|-------|-----------------|
+| TC-005 | Create recipe with valid data | High | User authenticated | 1. `POST /recipes` with name, instructions, cookingTime, categoryIds, components | 201 Created with recipe id |
+| TC-006 | Create recipe rejects empty name | High | User authenticated | 1. `POST /recipes` with empty name | 400 Bad Request |
+| TC-007 | Create recipe rejects missing ingredients | High | User authenticated | 1. `POST /recipes` with empty components array | 400 Bad Request or validation error |
+| TC-008 | List recipes returns paginated results | High | At least 1 recipe exists | 1. `GET /recipes?page=0&size=20` | 200 OK with paginated list, total count |
+| TC-009 | List recipes respects max page size | Medium | Backend running | 1. `GET /recipes?page=0&size=100` | Response limited to max configured size (50) |
+| TC-010 | Delete recipe as owner | High | User owns the recipe | 1. `DELETE /recipes/{id}` | 204 No Content, recipe removed |
+| TC-011 | Delete recipe rejected for non-owner | High | User does not own the recipe | 1. `DELETE /recipes/{id}` | 403 Forbidden |
+| TC-012 | Update recipe metadata | High | User owns the recipe | 1. `PUT /recipes/{id}` with updated name, instructions, cookingTime | 200 OK with updated recipe |
+| TC-013 | Update recipe components | High | User owns the recipe | 1. `PUT /recipes/{id}` with modified components | 200 OK, components updated |
+| TC-014 | Update recipe rejected for non-owner | High | User does not own the recipe | 1. `PUT /recipes/{id}` | 403 Forbidden |
+| TC-015 | Update recipe with invalid data | Medium | User owns the recipe | 1. `PUT /recipes/{id}` with empty name | 400 Bad Request |
+
+#### 4.2.3 Category Tests
+
+| Test Case ID | Description | Priority | Preconditions | Steps | Expected Result |
+|-------------|-------------|----------|---------------|-------|-----------------|
+| TC-016 | List all categories | High | Backend running | 1. `GET /categories` | 200 OK with super categories and categories |
+| TC-017 | Category response structure matches frontend expectations | Medium | Backend running | 1. `GET /categories` | Response has `superCategories[]` and `categories[]` with required fields |
+
+#### 4.2.4 Frontend Unit Tests
+
+| Test Case ID | Description | Priority | Preconditions | Steps | Expected Result |
+|-------------|-------------|----------|---------------|-------|-----------------|
+| TC-018 | categoryMapper maps API response correctly | Medium | Test environment | 1. Call `mapCategoriesResponseToLists` with fixture data | Returns correctly mapped lists |
+| TC-019 | createRecipeService sends correct payload | High | Test environment | 1. Mock fetch, call `createRecipe` | Correct POST body sent (name trimmed, components filtered) |
+| TC-020 | useCreateRecipeStore manages state correctly | Medium | Test environment | 1. Create store, call actions | State updates correctly, validation works |
+| TC-021 | Recipe list store loads recipes | Medium | Test environment | 1. Mock fetch, call load action | Recipes stored, pagination state updated |
+| TC-022 | Navigation renders correct routes | Medium | Test environment | 1. Mount app with router | All defined routes accessible |
+
+#### 4.2.5 Edge Case Tests
+
+| Test Case ID | Description | Priority | Preconditions | Steps | Expected Result |
+|-------------|-------------|----------|---------------|-------|-----------------|
+| TC-023 | Recipe name with special characters | Medium | User authenticated | 1. Create recipe with name `Über Suppe & Co. (wöchentlich)` | Recipe created successfully |
+| TC-024 | Maximum field length handling | Low | User authenticated | 1. Create recipe with 500+ char name | Either truncated or rejected with clear error |
+| TC-025 | Concurrent recipe creation | Low | Two users authenticated | 1. Both create recipes simultaneously | Both succeed independently |
+
+### 4.3 Outline of Test Exclusions
 
 The following test types are not planned for the current iteration because of time and resource constraints:
 
@@ -322,6 +378,7 @@ Important API contracts:
 | `/recipes` | GET | Returns paginated recipe data. |
 | `/recipes` | POST | Creates a recipe for an authenticated user. |
 | `/recipes/{id}` | DELETE | Deletes an owned recipe and returns `204 No Content`. |
+| `/recipes/{id}` | PUT | Updates an owned recipe (name, instructions, cookingTime, categories, components). Returns `200 OK`. |
 | `/auth/me` | GET | Returns current authenticated user information. |
 | `/oauth2/authorization/google` | GET | Starts Google OAuth login flow. |
 
@@ -379,7 +436,21 @@ Current automated checks:
 | Medium | Important regression coverage, but not always blocking for early development. | Search/filter behavior, localization, category mapping, UI step navigation. |
 | Low | Nice-to-have or later-stage quality checks. | Visual regression, broad browser matrix, non-critical layout details. |
 
-### 5.3 Requirements Traceability
+### 5.5 Test Schedule
+
+| Sprint / Phase | Period | Focus | Deliverables |
+|---------------|--------|-------|-------------|
+| Sprint 13 (Current) | Week 13–14 | Test plan creation, initial test infrastructure | TestPlan.md v1.0, Vitest/JUnit setup, initial tests |
+| Sprint 14 | Week 15–16 | Test plan extension, new tests, Recipe Update feature | Updated TestPlan v1.1, backend+frontend tests, PUT endpoint |
+| Sprint 15 | Week 17–18 | Search/filter, Recipe Detail View, E2E smoke tests | Playwright setup, search tests, detail page tests |
+| Sprint 16 | Week 19–20 | Weekly plan feature, full regression suite | Plan feature tests, full CI coverage report |
+
+Each sprint should end with:
+- All high-priority test cases passing in CI.
+- No critical (S1) or high (S2) open defects on protected branches.
+- Test coverage meeting or exceeding the targets defined in Section 5.4.
+
+### 5.6 Requirements Traceability
 
 | Requirement / Use Case | Relevant test focus | Priority |
 |------------------------|--------------------|----------|
@@ -388,7 +459,7 @@ Current automated checks:
 | UC3 Editing Category | Edit form behavior and update API once implemented. | Low/Medium |
 | UC4 Category Overview | `GET /categories`, category grouping, localized category labels. | High |
 | UC5 Creating Recipe | Recipe form validation, `POST /recipes`, ingredient handling, persistence, UI feedback. | High |
-| UC6 Editing Recipes | Edit form and update API once implemented. | Medium |
+| UC6 Editing Recipes | Edit form, `PUT /recipes/{id}` API, ownership checks, component updates. TC-012 to TC-015. | High |
 | UC7 Choose A Category per Day | Weekly plan UI and plan persistence once implemented. | Medium |
 | UC8 Overview Of The Week | Week overview and recipe generation once implemented. | Medium |
 | Account Management/Login | OAuth redirect, current user endpoint, authenticated-only operations. | High |
@@ -442,7 +513,24 @@ Defects should be tracked as GitHub issues or Jira tickets. Each issue should in
 - Screenshots/logs where helpful.
 - Severity and affected repository.
 
-### 6.5 Smoke Test Suite and Supporting Test Scripts
+### 6.6 Defect Severity Classification
+
+| Severity | Label | Definition | Resolution Timeline |
+|----------|-------|-----------|-------------------|
+| S1 | Critical | Application crashes, data loss, security breach, or complete feature failure. | Must be fixed before merge/deploy. |
+| S2 | High | Major feature broken, incorrect business logic, or API returning wrong data. | Fix within current sprint. |
+| S3 | Medium | Minor functional issue, UI inconsistency, or degraded performance that doesn't block usage. | Fix within next sprint or document as known issue. |
+| S4 | Low | Cosmetic issues, typos, minor UX polish, or non-functional improvements. | Fix when convenient or backlog. |
+
+Each GitHub Issue used for defect tracking should include:
+
+- **Title** with severity prefix: `[S1]`, `[S2]`, `[S3]`, or `[S4]`
+- **Steps to reproduce**
+- **Expected vs. actual behavior**
+- **Affected repository** (frontend / backend / docs)
+- **Screenshots or logs** where applicable
+
+### 6.7 Smoke Test Suite and Supporting Test Scripts
 
 The smoke test suite should be executable locally and in CI. It should validate the core deployment candidate before release:
 
