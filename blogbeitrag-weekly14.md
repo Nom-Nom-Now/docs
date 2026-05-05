@@ -2,67 +2,81 @@
 
 ## Weekly 14
 
-Diese Woche stand die Erweiterung des Testplans, das Hinzufügen neuer Tests und die Weiterentwicklung des Projekts im Fokus.
+Diese Woche stand die Erweiterung des Testplans, das Hinzufügen neuer Tests, die Implementierung des Recipe-Update-Features und die Behebung von CI-Fehlern im Fokus.
 
 ## Erledigte Punkte
 
-- **Testplan erweitert (TestPlan.md v1.1):**
-  - 25 konkrete Testfall-Spezifikationen hinzugefügt (TC-001 bis TC-025) mit Beschreibung, Priorität, Voraussetzungen, Schritten und erwarteten Ergebnissen.
-  - Testfälle abgedeckt: Authentication (TC-001–TC-004), Recipe CRUD inkl. Update (TC-005–TC-015), Categories (TC-016–TC-017), Frontend Unit Tests (TC-018–TC-022), Edge Cases (TC-023–TC-025).
-  - Test-Schedule mit Sprint-Übersicht (Sprint 13–16) ergänzt.
-  - Defect-Severity-Schema (S1–S4) mit Kldefinitions und Auflösungszeilen definiert.
-  - API-Contract-Tabelle um `PUT /recipes/{id}` erweitert.
-  - Requirements Traceability für UC6 Editing Recipes aktualisiert (Priorität auf „High" erhöht).
+### Testplan (TestPlan.md v1.2)
 
-- **Neue Frontend-Tests (4 Dateien, 43 neue Tests):**
-  - `editRecipeService.test.ts` — 10 Tests für Mapping und API-Aufrufe (getRecipe, updateRecipe).
-  - `useRecipeListStore.test.ts` — 7 Tests für den Recipe-List-Store.
-  - `navigation.test.ts` — 13 Tests für alle definierten Router-Routes inkl. neuem Edit-Route.
-  - `i18n.test.ts` — 9 Tests für Locale-Key-Konsistenz (DE/EN).
+- Testplan gestreamlined auf 5-Stunden-Budget: von 665 auf 371 Zeilen gekürzt (~43%).
+- E2E-, Contract- und UI-Tests aus Scope genommen (begründete Exclusions-Tabelle hinzugefügt, deferriert auf Sprint 15+).
+- Fokus auf Happy-Path-Tests für `RecipeService` und Controller-Endpunkte.
+- Coverage-Ziel angepasst: "Fokus auf das erfolgreiche Testen der Haupt-Services" statt harter Prozentzahlen.
+- Requirements Traceability für UC5/UC6 mit konkreten Testfall-Referenzen ergänzt.
 
-- **Neue Backend-Tests (4 Dateien):**
-  - `RecipeServiceTest.java` — Unit-Tests für create, findById, updateRecipe, deleteRecipe inkl. Ownership-Checks (Mockito).
-  - `RecipeControllerTest.java` — Integrationstests mit MockMvc + Testcontainers PostgreSQL für alle CRUD-Endpunkte.
-  - `CategoryControllerTest.java` — Integrationstests für GET /categories (8 SuperCategories, 73 Categories).
-  - `AuthIntegrationTest.java` — Tests für /auth/me mit OAuth2-Mock und fehlender Authentifizierung.
+### Neue Backend-Tests (4 Dateien, ~29 Testfälle)
 
-- **Rezept bearbeiten — neues Feature (Backend + Frontend):**
-  - Backend: `PUT /recipes/{id}` Endpoint in RecipeController und `updateRecipe()` in RecipeService implementiert, inkl. Ownership-Check und Orphan-Cleanup für Ingredients.
-  - Backend: `GET /recipes/{id}` Endpoint zum Laden einzelner Rezepte ergänzt.
-  - Frontend: `editRecipeService.ts` mit `getRecipe()`, `updateRecipe()` und `mapResponseToState()` erstellt.
-  - Frontend: `useCreateRecipeStore` um Edit-Modus erweitert (`editingRecipeId`, `loadRecipe()`, `isEditMode`).
-  - Frontend: `EditRecipeView.vue` als neue View mit automatischem Laden beim Mount.
-  - Frontend: Router um `/recipes/:id/edit` Route ergänzt.
-  - Frontend: PreviewFrame zeigt im Edit-Modus „Rezept aktualisieren" statt „Rezept erstellen".
-  - i18n: Deutsche und englische Übersetzungen für Edit-Modus ergänzt.
+- **`RecipeServiceTest.java`** — 10 Unit-Tests (Mockito) für create, findById, findAll, updateRecipe, deleteRecipe inkl. Ownership-Checks und Orphan-Cleanup.
+- **`RecipeControllerTest.java`** — 11 Integrationstests (MockMvc + Testcontainers PostgreSQL) für POST, GET, PUT, DELETE /recipes inkl. Validierungen und 403-Fälle.
+- **`CategoryControllerTest.java`** — 4 Tests als `@WebMvcTest` (leichtgewichtig, kein DB-Container nötig) für GET /categories.
+- **`AuthIntegrationTest.java`** — 4 Integrationstests für `/auth/me` mit oauth2Login und fehlender Authentifizierung.
+
+### Neue Frontend-Tests (4 Dateien, ~43 Testfälle)
+
+- **`editRecipeService.test.ts`** — 10 Tests für Mapping und API-Aufrufe (getRecipe, updateRecipe).
+- **`useRecipeListStore.test.ts`** — 7 Tests für den Recipe-List-Store.
+- **`navigation.test.ts`** — 13 Tests für alle definierten Router-Routes inkl. neuem Edit-Route.
+- **`i18n.test.ts`** — 9 Tests für Locale-Key-Konsistenz (DE/EN).
+
+### Rezept bearbeiten — neues Feature (Backend + Frontend)
+
+- Backend: `PUT /recipes/{id}` und `GET /recipes/{id}` Endpoints implementiert, inkl. Ownership-Check und atomarem Orphan-Cleanup für Ingredients.
+- Frontend: `editRecipeService.ts`, erweiterter `useCreateRecipeStore` (Edit-Modus), `EditRecipeView.vue`, Router-Ergänzung, i18n Keys.
+
+### CI-Fehlerbehebung
+
+Für Spring Boot 4.x mussten mehrere Tests mehrfach angepasst werden:
+
+- **`@AutoConfigureMockMvc`** — Package-Wechsel in `org.springframework.boot.webmvc.test.autoconfigure`, Dependency `spring-boot-webmvc-test` statt `spring-boot-test-autoconfigure`.
+- **OAuth2 in MockMvc** — `SecurityContextHolder` reicht nicht durch den Filter-Chain. Umstellung auf `SecurityMockMvcRequestPostProcessors.oauth2Login()` mit `spring-security-test` Dependency.
+- **Test-Datenbank-Schema** — `CREATE SCHEMA IF NOT EXISTS app` + `hibernate.default_schema=app` in `src/test/resources/application.yaml`.
+- **Test-Isolation** — `@BeforeEach` mit `deleteAll()` verhindert Daten-Leakage zwischen Tests.
+
+### Copilot Code Review umgesetzt
+
+- **Null-safe Ownership Check** — `recipe.getOwner()` kann `null` sein (legacy rows) → NPE verhindert.
+- **Atomare Orphan-Cleanup** — Check-Then-Delete Loop (race-prone) durch `@Modifying` JPQL-Query ersetzt.
+- **Synthetic 500 Test entfernt** — Test hat nur Test-Harness-Verhalten getestet, nicht echte App-Logik.
+- **`@WebMvcTest` für Categories** — Von `@SpringBootTest` + Testcontainers auf lightweight Slice-Test umgestellt.
 
 ## Validierung
 
-- Frontend-Checks lokal ausgeführt:
-  - `npm ci` ✓
-  - `npx vitest run` — **54 Tests grün** (7 Testdateien)
-  - `npx vue-tsc --noEmit` ✓
-  - `npx eslint src/` ✓
-  - `npx vite build` ✓ (253 Modules, 2.7s)
-- Backend-Tests: Strukturiert nach gleichem Pattern wie bestehender Smoke-Test (Testcontainers + MockMvc). Laufen über CI (Java 25 + Docker erforderlich).
+- Frontend: `npx vitest run` — **54 Tests grün** (7 Testdateien)
+- Frontend: `npx vue-tsc --noEmit` ✓
+- Frontend: `npx eslint src/` ✓
+- Backend: `./mvnw verify` in CI (Spring Boot 4.x + Java 25 + Testcontainers)
 
 ## Geänderte Dateien
 
 **Docs:**
-- `docs/TestPlan.md` — v1.1 mit Testfällen, Schedule, Defect-Schema
+- `docs/TestPlan.md` — v1.2 gestreamlined (665→371 Zeilen)
+- `docs/blogbeitrag-weekly14.md` — aktualisiert
 
 **Backend:**
-- `RecipeController.java` — GET /{id}, PUT /{id} hinzugefügt
-- `RecipeService.java` — findById(), updateRecipe() hinzugefügt
+- `RecipeController.java` — GET /{id}, PUT /{id}
+- `RecipeService.java` — updateRecipe(), null-safe ownership, atomarer Orphan-Cleanup
+- `IngredientRepository.java` — `deleteOrphanedByIds()` Bulk-Query
+- `RecipeComponentRepository.java` — bereinigt
+- `pom.xml` — `spring-boot-webmvc-test`, `spring-security-test`
+- `src/test/resources/application.yaml` — Test-Config (ddl-auto, schema, frontend-url)
+- `src/test/resources/schema-init.sql` — `CREATE SCHEMA IF NOT EXISTS app`
+- 4 neue Testdateien (RecipeServiceTest, RecipeControllerTest, CategoryControllerTest, AuthIntegrationTest)
 
 **Frontend:**
 - `editRecipeService.ts` — neuer Service
 - `useCreateRecipeStore.ts` — Edit-Modus erweitert
 - `EditRecipeView.vue` — neue View
-- `router/index.ts` — Edit-Route hinzugefügt
+- `router/index.ts` — Edit-Route
 - `PreviewFrame.vue` — Edit-Modus Button-Text
-- `de.json` / `en.json` — i18n Keys ergänzt
-
-**Tests:**
-- Frontend: 4 neue Testdateien (editRecipeService, useRecipeListStore, navigation, i18n)
-- Backend: 4 neue Testdateien (RecipeServiceTest, RecipeControllerTest, CategoryControllerTest, AuthIntegrationTest)
+- `de.json` / `en.json` — i18n Keys
+- 4 neue Testdateien (editRecipeService, useRecipeListStore, navigation, i18n)
