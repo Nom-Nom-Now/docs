@@ -1,4 +1,4 @@
-# Blogbeitrag - Weekly 14
+# Blogbeitrag - Weekly 14 (Draft)
 
 ## Weekly 14: Testplan gestrafft, Recipe Update umgesetzt, CI stabilisiert
 
