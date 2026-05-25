@@ -1,7 +1,7 @@
 # Technical Review: Weekly Task 8
 
 - Datum 25.5.2026
-- Startzeit: 20:23; Endzeit:
+- Startzeit: 20:23; Endzeit: 21:18
 - Teilnehmer:
     - Rafael zeigt code, moderiert
     - Jonah von BetCeption als externer Reviewer
