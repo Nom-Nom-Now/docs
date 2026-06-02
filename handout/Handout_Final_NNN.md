@@ -268,7 +268,7 @@ Die Datenbank liegt in PostgreSQL im Schema `app`. Schemaänderungen werden mit 
 | `app.shopping_list`      | Nutzerbezogene Einkaufslisten                                                  |
 | `app.shopping_list_item` | Positionen einer Einkaufsliste                                                 |
 
-### 8.2 Beziehungen und Constraints
+### 7.2 Beziehungen und Constraints
 
 - Rezepte gehören optional/eindeutig zu einem Owner (`recipe.owner_id -> app_user.id`).
 - Rezeptkomponenten referenzieren Rezept und Zutat; beim Löschen eines Rezepts werden Komponenten per Cascade entfernt.
