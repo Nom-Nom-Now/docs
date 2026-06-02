@@ -71,8 +71,6 @@ Bitte mit euren echten Projektdaten ergaenzen.
 
 ## 4. Demo-Highlights
 
-> Fuer das finale Handout hier echte Screenshots einfuegen. Vorgeschlagene Bildpfade koennt ihr spaeter anpassen.
-
 ### 4.1 Login und Startseite
 
 Beschreibung:
@@ -83,7 +81,7 @@ Beschreibung:
 
 Screenshot:
 
-![TODO: Login oder Home Screenshot](./screenshots/todo-login-home.png)
+![img.png](img.png)
 
 ### 4.2 Rezepte erstellen
 
@@ -95,7 +93,11 @@ Beschreibung:
 
 Screenshot:
 
-![TODO: Rezept erstellen Screenshot](./screenshots/todo-recipe-create.png)
+![img_1.png](img_1.png)
+![img_2.png](img_2.png)
+![img_3.png](img_3.png)
+![img_4.png](img_4.png)
+![img_5.png](img_5.png)
 
 ### 4.3 Rezepte suchen, ansehen, bearbeiten und loeschen
 
@@ -106,9 +108,21 @@ Beschreibung:
 - Bearbeitungsflow mit eigenem Store und Service.
 - Löschen ist als geschützter Owner-Flow im Backend umgesetzt.
 
-Screenshot:
+Suchfunktion:
 
-![TODO: Rezeptliste oder Detailansicht Screenshot](./screenshots/todo-recipe-list-detail.png)
+![img_7.png](img_7.png)
+
+Detailansicht:
+
+![img_6.png](img_6.png)
+
+Bearbeiten:
+
+![img_8.png](img_8.png)
+
+Löschen:
+
+![img_9.png](img_9.png)
 
 ### 4.4 Wochenplan
 
@@ -120,7 +134,7 @@ Beschreibung:
 
 Screenshot:
 
-![TODO: Wochenplan Screenshot](./screenshots/todo-weekly-plan.png)
+![img_10.png](img_10.png)
 
 ### 4.5 Einkaufslisten
 
@@ -133,7 +147,7 @@ Beschreibung:
 
 Screenshot:
 
-![TODO: Einkaufsliste Screenshot](./screenshots/todo-shopping-list.png)
+![img_11.png](img_11.png)
 
 ## 5. Projekt-Highlights
 
@@ -377,28 +391,11 @@ Vorschlag fuer finale Tabelle:
 | Backend | TODO | TODO: JaCoCo oder anderes Tool | TODO |
 | Frontend | TODO | TODO: Vitest Coverage oder anderes Tool | TODO |
 
-## 10. Softwaremetriken
+## 10. Softwarequalität
 
-Die folgenden Werte wurden aus dem lokalen Stand der Repositories abgeleitet.
+Angestrebtes 3A in den Metriken über SonarQube:
 
-| Metrik | Backend | Frontend |
-|---|---:|---:|
-| Produktive Quelldateien | 52 Java-Dateien | ca. 75 TS/Vue/JSON/CSS-Dateien unter `src` ohne Tests |
-| Quelldateien gesamt | 61 Java-Dateien inkl. Tests | 87 TS/Vue/JSON/CSS-Dateien unter `src` inkl. Tests |
-| Testdateien | 9 Java-Testdateien | 12 Frontend-Testdateien |
-| Testfaelle grob nach Testdefinitionen | 35 `@Test`-Methoden | 51 `it(...)`/`test(...)`-Definitionen |
-| Lines of Code, Haupt- und Testcode | 3.442 Java-Zeilen | 9.264 TS/Vue/JSON/CSS-Zeilen |
-| Datenbankmigrationen | 10 Flyway-Dateien / 175 SQL-Zeilen | nicht zutreffend |
-| CI-Workflows | 2 GitHub Actions Workflows | 2 GitHub Actions Workflows |
-
-Weitere sinnvolle finale Metriken:
-
-- `TODO: Anzahl User Stories / Issues`
-- `TODO: Anzahl Pull Requests`
-- `TODO: Anzahl Bugs / Defects`
-- `TODO: Sprint Velocity`
-- `TODO: Test Coverage`
-- `TODO: Code Smells / Technical Debt aus Sonar o.a.`
+![img_12.png](img_12.png)
 
 ## 11. CI/CD Setup
 
@@ -458,9 +455,6 @@ Datei: `.github/workflows/frontendCd.yml`
 
 ## 14. Offene To-dos fuer das finale Handout
 
-- [ ] Screenshots fuer alle Demo-Highlights einfuegen.
 - [ ] Echte Coverage-Werte messen und eintragen.
-- Screenshot von Sonar
 - ERM einfügen
-- [ ] Team-Highlights und gelernte Lektionen gemeinsam finalisieren.
 - [ ] Rechtschreibung/Formatierung fuer finale PDF-/Print-Version pruefen.
