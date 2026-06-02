@@ -1,9 +1,5 @@
 # Projekthandout - Nom Nom Now
 
-Stand: 01.06.2026  
-Quelle: lokale Repositories `nom-nom-now-frontend` und `nom-nom-now-backend`
-
-> Hinweis: Alles mit `TODO` muss noch mit euren echten Projektmanagementdaten, Namen, Stunden, Screenshots oder Links ergänzt werden. Technische Angaben wurden aus den beiden Repositories abgeleitet.
 
 ## 1. Projektname
 
@@ -15,7 +11,7 @@ Repositorys:
 
 - Frontend: `git@github.com:Nom-Nom-Now/nom-nom-now-frontend.git`
 - Backend: `git@github.com:Nom-Nom-Now/nom-nom-now-backend.git`
-- Scrum Board: `https://nomnomnow.atlassian.net/jira/software/projects/NNN/boards/1`
+- Scrum-Board: `https://nomnomnow.atlassian.net/jira/software/projects/NNN/boards/1`
 - Weitere Dokumentation/Blog/Zusammenfassung: `https://github.com/Nom-Nom-Now/docs`
 
 ## 2. Projektvision und Ziel
@@ -26,21 +22,21 @@ Ziel des Projekts ist eine alltagstaugliche Web-App für Essensplanung. Der Kern
 - Rezepte können über eine Liste durchsucht und in Detailansichten geöffnet werden.
 - Ein Wochenplan ordnet Rezepte einzelnen Tagen zu.
 - Aus einem Wochenplan können Einkaufslisten erzeugt und später wieder geöffnet oder gelöscht werden.
-- Authentifizierung läuft produktiv über Google OAuth2; lokal gibt es ein Dev-Profil mit Testnutzer.
+- Authentifizierung läuft produktiv über Google-OAuth2; lokal gibt es ein Dev-Profil mit Testnutzer.
 
 ## 3. Aufwandsstatistiken
 
 ### 3.1 Arbeitsstunden pro Person
 
-Die echten Arbeitsstunden stehen nicht in den Repositories und müssen aus eurem Projektmanagement/Scrum Board ergänzt werden.
+Die folgenden Arbeitsstunden fassen die im Team erfassten Aufwände zusammen.
 
 | Person         | Arbeitsstunden | Hauptbeitrag                                                       | Quelle/Kommentar                                                                           |
 |----------------|---------------:|--------------------------------------------------------------------|--------------------------------------------------------------------------------------------|
-| Rafael Till    |             65 | CI/CD und Backendentwickler                                        | Git-Autor in Frontend und Backend sichtbar: 'rafiistcool'                                  |
-| Silas Scholler |             54 | Wochenaufgaben Frontendentwickler                                  | Git-Autor in Frontend und Backend sichtbar: `SilasSch`                                     |
-| Tino Wolter    |             63 | Frontendentwickler, Frontendarchitektur, Mock-ups und Reviews      | Git-Autor im Frontend sichtbar: `tinow04`                                                  |
-| Robin Fischer  |             58 | Frontendentwickler, Mock-ups, Backendentwickler und Wochenaufgaben | Git-Autor im Frontend und Backend sichtbar: `Robin0106` und Paircode mit Rafael im Backend |
-| Dylan O'Reilly |             43 | Frontendentwickler und Projektmanagement                           | Git-Autor in Frontend und Backend sichtbar: 'dlllln', mündliche Prüfung im 3. Semester     |
+| Rafael Till    |             65 | CI/CD und Backend-Entwicklung                                      | Git-Autor in Frontend und Backend sichtbar: `rafiistcool`                                  |
+| Silas Scholler |             54 | Wochenaufgaben und Frontend-Entwicklung                            | Git-Autor in Frontend und Backend sichtbar: `SilasSch`                                     |
+| Tino Wolter    |             63 | Frontend-Entwicklung, Frontend-Architektur, Mockups und Reviews    | Git-Autor im Frontend und Backend sichtbar: `tinow04`                                                  |
+| Robin Fischer  |             58 | Frontend-Entwicklung, Mockups, Backend-Entwicklung, Wochenaufgaben | Git-Autor im Frontend und Backend sichtbar: `Robin0106` und Paircode mit Rafael im Backend |
+| Dylan O'Reilly |             43 | Frontend-Entwicklung und Projektmanagement                         | Git-Autor in Frontend und Backend sichtbar: `dlllln`, mündliche Prüfung im 3. Semester     |
 
 ### 3.2 Arbeitsstunden pro Workflow
 
@@ -48,26 +44,24 @@ Die echten Arbeitsstunden stehen nicht in den Repositories und müssen aus eurem
 |------------------------------|---------------:|--------------------------------------------------------|
 | Requirement Analysis         |             10 | Anforderungen, User Stories, Akzeptanzkriterien        |
 | Project Management           |             50 | Sprintplanung, Boardpflege, Reviews, Koordination      |
-| Architecture & Design        |             20 | Frontend-/Backend-Struktur, Datenmodell, API-Vertraege |
+| Architecture & Design        |             20 | Frontend-/Backend-Struktur, Datenmodell, API-Verträge  |
 | Frontend Development         |             50 | Vue-App, Feature-Module, UI, i18n                      |
-| Backend Development          |             50 | Spring Boot API, Services, Security, Datenbankzugriff  |
+| Backend Development          |             50 | Spring-Boot-API, Services, Security, Datenbankzugriff   |
 | Database Design & Migration  |             15 | PostgreSQL-Schema, Flyway-Migrationen                  |
-| Testing & Quality Assurance  |             20 | Unit-/Service-/Controller-Tests, Linting, Type Checks  |
-| CI/CD & Deployment           |             15 | GitHub Actions, Docker Images, Server Deployment       |
+| Testing & Quality Assurance  |             20 | Unit-/Service-/Controller-Tests, Linting, Type-Checks  |
+| CI/CD & Deployment           |             15 | GitHub Actions, Docker-Images, Server-Deployment       |
 | Documentation & Presentation |             25 | README, Handout, Folien, Abschlussdokumentation        |
 
-Die Stunden sind bei den Stunden pro Person teilweise doppelt eingerechnet, sollten mehrere Personen an einem Workflow gearbeitet haben.
+Die Stunden sind bei den Stunden pro Person teilweise doppelt eingerechnet, wenn mehrere Personen an einem Workflow gearbeitet haben.
 
 ### 3.3 Arbeitsstunden pro Phase
 
-Bitte mit euren echten Projektdaten ergaenzen.
-
-| Phase        | Arbeitsstunden |
-|--------------|----------------|
-| Inception    | 45             | Projektidee, Vision, erste Anforderungen, Risiken |
+| Phase        | Arbeitsstunden | Schwerpunkt                                            |
+|--------------|----------------|--------------------------------------------------------|
+| Inception    | 45             | Projektidee, Vision, erste Anforderungen, Risiken      |
 | Elaboration  | 31             | Architekturentscheidungen, SRS/SAD, Datenmodell, Prototypen |
-| Construction | 130            | Implementierung der Kernfeatures, Tests, CI/CD |
-| Transition   | 47             | Stabilisierung, Demo, Dokumentation, Deployment |
+| Construction | 130            | Implementierung der Kernfeatures, Tests, CI/CD         |
+| Transition   | 47             | Stabilisierung, Demo, Dokumentation, Deployment        |
 
 ## 4. Demo-Highlights
 
@@ -75,7 +69,7 @@ Bitte mit euren echten Projektdaten ergaenzen.
 
 Beschreibung:
 
-- Produktiv: Google OAuth2 Login.
+- Produktiv: Google-OAuth2-Login.
 - Lokal: Dev-Profil mit automatisch angemeldetem Testnutzer.
 - Die App nutzt eine Shell mit Navigation und Seitentitel. Login wird als Vollbildseite ohne Shell angezeigt.
 
@@ -99,7 +93,7 @@ Screenshot:
 ![img_4.png](img_4.png)
 ![img_5.png](img_5.png)
 
-### 4.3 Rezepte suchen, ansehen, bearbeiten und loeschen
+### 4.3 Rezepte suchen, ansehen, bearbeiten und löschen
 
 Beschreibung:
 
@@ -140,8 +134,8 @@ Screenshot:
 
 Beschreibung:
 
-- Einkaufslisten werden aus Wochenplaenen generiert.
-- Gespeicherte Einkaufslisten können wieder geoeffnet werden.
+- Einkaufslisten werden aus Wochenplänen generiert.
+- Gespeicherte Einkaufslisten können wieder geöffnet werden.
 - Einkaufslisten sind nutzerbezogen.
 - Löschen ist owner-scoped und im Frontend mit Bestätigungsdialog abgesichert.
 
@@ -161,7 +155,7 @@ Browser
       -> Feature-Komponenten
       -> Pinia Stores
       -> Services / DTO-Mapping
-      -> HTTP Requests
+      -> HTTP-Requests
   -> Spring Boot REST API
       -> Controller
       -> Services
@@ -187,14 +181,14 @@ Backend:
 - Spring Data JPA für Datenzugriff.
 - PostgreSQL als relationale Datenbank.
 - Flyway für versionierte Datenbankmigrationen.
-- Spring Security mit Google OAuth2 im Produktivbetrieb.
-- Dev-Profil mit lokalem Testnutzer für schnellere Entwicklung ohne Google Login.
+- Spring Security mit Google-OAuth2 im Produktivbetrieb.
+- Dev-Profil mit lokalem Testnutzer für schnellere Entwicklung ohne Google-Login.
 
 ### 5.2 Architekturentscheidungen und Begründung
 
 | Entscheidung                       | Begründung                                                                                |
 |------------------------------------|-------------------------------------------------------------------------------------------|
-| Getrennte Frontend-/Backend-Repos  | Klare Verantwortlichkeiten, unabhaengige CI/CD-Pipelines und getrennte Deployments        |
+| Getrennte Frontend-/Backend-Repos  | Klare Verantwortlichkeiten, unabhängige CI/CD-Pipelines und getrennte Deployments         |
 | Vue 3 + Vite + TypeScript          | Schnelle Entwicklung, Typsicherheit, moderne SPA-Struktur                                 |
 | Feature-basierte Frontend-Struktur | Features kapseln Komponenten, Stores, Services und Typen erleichtert parallele Teamarbeit |
 | Spring Boot + Spring Data JPA      | Schnelle REST-API-Entwicklung, gute Integration von Persistence, Validation und Security  |
@@ -214,7 +208,7 @@ Backend:
 | Service Layer          | Business-Logik liegt in `RecipeService`, `RecipePlanService`, `ShoppingListService`, `CategoryService` |
 | Feature Module Pattern | Frontend-Features besitzen eigene Komponenten, Stores, Services und Typen                              |
 | Store Pattern          | Pinia Stores verwalten UI- und Feature-State                                                           |
-| App Shell Pattern      | Gemeinsame Navigation/Header-Struktur mit route-basiertem Vollbildmodus fuer Login                     |
+| App Shell Pattern      | Gemeinsame Navigation/Header-Struktur mit routenbasiertem Vollbildmodus für Login                       |
 
 ## 6. Tech-Stack
 
@@ -231,7 +225,7 @@ Backend:
 | UI                    | Material Web Components               |
 | Tests                 | Vitest, Vue Test Utils, jsdom         |
 | Linting/Formatierung  | ESLint 9, Prettier 3                  |
-| Deployment            | Docker Multi-Stage Build, Nginx, GHCR |
+| Deployment            | Docker-Multi-Stage-Build, Nginx, GHCR |
 
 ### 6.2 Backend
 
@@ -244,47 +238,23 @@ Backend:
 | Persistence       | Spring Data JPA                                  |
 | Datenbank         | PostgreSQL                                       |
 | Migrationen       | Flyway                                           |
-| Security          | Spring Security, OAuth2 Client, Google Login     |
+| Security          | Spring Security, OAuth2-Client, Google-Login     |
 | API-Dokumentation | springdoc-openapi / Swagger UI                   |
 | Tests             | Spring Boot Test, JUnit, Mockito, Testcontainers |
-| Deployment        | Docker Multi-Stage Build, GHCR, Docker Compose   |
+| Deployment        | Docker-Multi-Stage-Build, GHCR, Docker Compose   |
 
 ### 6.3 Infrastruktur
 
-- GitHub Actions fuer CI/CD.
+- GitHub Actions für CI/CD.
 - GitHub Container Registry (`ghcr.io`) für Frontend- und Backend-Images.
 - Docker Compose für PostgreSQL, Flyway, Backend und Frontend.
-- Produktivdeployment per SSH/SCP auf Server.
+- Produktiv-Deployment per SSH/SCP auf Server.
 
-## 7. API und zentrale Features
+## 7. Datenbankdesign
 
-### 7.1 Backend-Endpunkte
+Die Datenbank liegt in PostgreSQL im Schema `app`. Schemaänderungen werden mit Flyway versioniert. Aktuell liegen 10 Migrationen vor.
 
-| Bereich        | Endpunkte                                                                                                                             |
-|----------------|---------------------------------------------------------------------------------------------------------------------------------------|
-| Auth           | `GET /auth/me`                                                                                                                        |
-| Kategorien     | `GET /categories`                                                                                                                     |
-| Rezepte        | `GET /recipes`, `GET /recipes/{id}/image`, `GET /recipes/user/{userId}`, `POST /recipes`, `PUT /recipes/{id}`, `DELETE /recipes/{id}` |
-| Wochenplan     | `GET /api/recipe-plans`, `POST /api/recipe-plans`, `PATCH /api/recipe-plans/{planDate}/refresh`                                       |
-| Einkaufslisten | `POST /api/shopping-lists`, `GET /api/shopping-lists`, `GET /api/shopping-lists/{id}`, `DELETE /api/shopping-lists/{id}`              |
-
-### 7.2 Frontend-Routen
-
-| Route                  | Zweck                                      |
-|------------------------|--------------------------------------------|
-| `/`                    | Login                                      |
-| `/home`                | Startseite                                 |
-| `/plan`                | Wochenplan                                 |
-| `/recipes`             | Rezeptbereich                              |
-| `/recipes/create`      | Rezept erstellen                           |
-| `/recipes/edit/:id`    | Rezept bearbeiten                          |
-| `/shopping-lists/:id?` | Einkaufslistenuebersicht und Detailansicht |
-
-## 8. Datenbankdesign
-
-Die Datenbank liegt in PostgreSQL im Schema `app`. Schemaaenderungen werden mit Flyway versioniert. Aktuell liegen 10 Migrationen vor.
-
-### 8.1 Zentrale Tabellen
+### 7.1 Zentrale Tabellen
 
 | Tabelle                  | Zweck                                                                          |
 |--------------------------|--------------------------------------------------------------------------------|
@@ -294,43 +264,101 @@ Die Datenbank liegt in PostgreSQL im Schema `app`. Schemaaenderungen werden mit 
 | `app.recipe_component`   | Zuordnung Rezept - Zutat mit Menge und Einheit                                 |
 | `app.category`           | Kategorien                                                                     |
 | `app.recipe_category`    | Many-to-many-Zuordnung Rezept - Kategorie                                      |
-| `app.recipe_plan`        | Nutzerbezogene Wochenplaneintraege                                             |
+| `app.recipe_plan`        | Nutzerbezogene Wochenplan-Einträge                                            |
 | `app.shopping_list`      | Nutzerbezogene Einkaufslisten                                                  |
 | `app.shopping_list_item` | Positionen einer Einkaufsliste                                                 |
 
 ### 8.2 Beziehungen und Constraints
 
-- Rezepte gehoeren optional/eindeutig zu einem Owner (`recipe.owner_id -> app_user.id`).
-- Rezeptkomponenten referenzieren Rezept und Zutat; beim Loeschen eines Rezepts werden Komponenten per Cascade entfernt.
+- Rezepte gehören optional/eindeutig zu einem Owner (`recipe.owner_id -> app_user.id`).
+- Rezeptkomponenten referenzieren Rezept und Zutat; beim Löschen eines Rezepts werden Komponenten per Cascade entfernt.
 - Rezept-Kategorien sind als Many-to-many-Tabelle modelliert.
-- Wochenplaene referenzieren Owner und Rezept.
+- Wochenpläne referenzieren Owner und Rezept.
 - Pro Owner und Datum gibt es im Wochenplan nur einen Eintrag (`UNIQUE (owner_id, plan_date)`).
-- Einkaufslisten und Einkaufslistenpositionen sind per Fremdschluessel verbunden; Items werden beim Loeschen der Liste per Cascade entfernt.
+- Einkaufslisten und Einkaufslistenpositionen sind per Fremdschlüssel verbunden; Items werden beim Löschen der Liste per Cascade entfernt.
 - Datenbankindizes existieren u.a. für Rezeptkomponenten, Kategorien, Rezept-Owner, Wochenplan nach Owner/Datum und Einkaufslisten nach Owner/Erstellzeitpunkt.
-  ########################################################## TODO ERM ##########################################################
-## 9. Testing und Qualitaetssicherung
 
-### 9.1 Backend-Tests
+```mermaid
+erDiagram
+    APP_USER |o--o{ RECIPE : owns
+    APP_USER ||--o{ RECIPE_PLAN : plans
+    RECIPE ||--o{ RECIPE_PLAN : scheduled_as
+    RECIPE ||--o{ RECIPE_COMPONENT : has
+    INGREDIENT ||--o{ RECIPE_COMPONENT : used_in
+    APP_USER ||--o{ SHOPPING_LIST : owns
+    SHOPPING_LIST ||--o{ SHOPPING_LIST_ITEM : contains
 
-Testdateien:
+    APP_USER {
+        bigint id PK
+        text google_id UK "not null"
+        text email "not null"
+        text name
+        timestamptz created_at "not null"
+    }
 
-- `NomNomNowBackendApplicationTests`
-- `RecipeControllerTest`
-- `ShoppingListControllerTest`
-- `DemoDataSeederTest`
-- `RecipePlanServiceTest`
-- `RecipeServiceTest`
-- `ShoppingListServiceTest`
-- `AuthControllerTest`
-- `CurrentUserServiceTest`
+    RECIPE {
+        bigint id PK
+        text name "not null"
+        text instructions
+        integer cooking_time "check >= 0"
+        integer servings "not null; default 1; check > 0"
+        bigint owner_id FK "nullable"
+        integer price_per_person
+        bytea image_data
+        text image_content_type
+        text image_filename
+        bigint image_size
+        text categories "comma-separated category ids"
+    }
+
+    INGREDIENT {
+        bigint id PK
+        text name UK "not null"
+    }
+
+    RECIPE_COMPONENT {
+        bigint id PK
+        bigint recipe_id FK "not null"
+        bigint ingredient_id FK "not null"
+        decimal quantity "numeric(10,2)"
+        text unit "Unit enum as string"
+    }
+
+    RECIPE_PLAN {
+        bigint id PK
+        bigint owner_id FK "not null"
+        bigint recipe_id FK "not null"
+        date plan_date "not null"
+        timestamptz created_at "not null"
+    }
+
+    SHOPPING_LIST {
+        bigint id PK
+        bigint owner_id FK "not null"
+        date week_start "not null"
+        timestamptz created_at "not null"
+    }
+
+    SHOPPING_LIST_ITEM {
+        bigint id PK
+        bigint shopping_list_id FK "not null"
+        text ingredient_name "not null"
+        decimal quantity "numeric(10,2); not null"
+        text unit "Unit enum as string; not null"
+    }
+```
+
+## 8. Testing und Qualitätssicherung
+
+### 8.1 Backend-Tests
 
 Abgedeckte Bereiche:
 
 - Application Context
-- Controller-Verhalten fuer Rezepte, Einkaufslisten und Auth
-- Service-Logik fuer Rezepte, Wochenplaene und Einkaufslisten
+- Controller-Verhalten für Rezepte, Einkaufslisten und Auth
+- Service-Logik für Rezepte, Wochenpläne und Einkaufslisten
 - Demo-Daten-Seeding
-- Current-User-Aufloesung
+- Current-User-Auflösung
 
 CI-Befehl:
 
@@ -338,22 +366,7 @@ CI-Befehl:
 ./mvnw -B verify
 ```
 
-### 9.2 Frontend-Tests
-
-Testdateien:
-
-- `HomePage.test.ts`
-- `PlanFrame.test.ts`
-- `WeeklyRecipePlanService.test.ts`
-- `authService.test.ts`
-- `categoryMapper.test.ts`
-- `createRecipeService.test.ts`
-- `useCreateRecipeStore.test.ts`
-- `useRecipeListStore.test.ts`
-- `ShoppingListService.test.ts`
-- `ShoppingListsPage.test.ts`
-- `useShoppingListStore.test.ts`
-- `apiFetch.test.ts`
+### 8.2 Frontend-Tests
 
 Abgedeckte Bereiche:
 
@@ -372,34 +385,30 @@ npm run test:unit
 npm run build
 ```
 
-### 9.3 Teststrategie
+### 8.3 Teststrategie
 
 - Backend: Unit-/Service-Tests und Controller-Tests mit Spring-Testumgebung.
-- Frontend: Vitest-Tests fuer Stores, Services und wichtige Komponenten.
+- Frontend: Vitest-Tests für Stores, Services und wichtige Komponenten.
 - TypeScript Type Checks verhindern viele Integrationsfehler im Frontend.
 - ESLint und Prettier sichern Code-Stil und Konsistenz.
-- CI laeuft bei Pull Requests bzw. Pushes und blockiert fehlerhafte Builds.
+- CI läuft bei Pull Requests bzw. Pushes und blockiert fehlerhafte Builds.
 
-### 9.4 Coverage
+### 8.4 Coverage
 
-`TODO: Echte Coverage-Werte einfuegen, falls ihr sie gemessen habt.`
+Bereich | Tool | Testlauf | Ergebnis | Lines | Statements / Instructions | Branches | Functions / Methods
+--- | --- | --- | --- | --- | --- | --- | ---
+Frontend | Vitest V8 Coverage | npm run test:coverage | 20 Testdateien, 94 Tests, 0 Fehler | 75.66% (824/1089) | 74.58% (848/1137 Statements) | 57.56% (407/707) | 68.79% (194/282 Functions)
+Backend | JaCoCo 0.8.14 | ./mvnw test | 56 Tests, 0 Fehler | 74.93% (562/750) | 78.95% (3109/3938 Instructions) | 56.37% (115/204) | 77.60% (142/183 Methods)
 
-Vorschlag fuer finale Tabelle:
-
-| Bereich | Coverage | Tool | Kommentar |
-|---|---:|---|---|
-| Backend | TODO | TODO: JaCoCo oder anderes Tool | TODO |
-| Frontend | TODO | TODO: Vitest Coverage oder anderes Tool | TODO |
-
-## 10. Softwarequalität
+## 9. Softwarequalität
 
 Angestrebtes 3A in den Metriken über SonarQube:
 
 ![img_12.png](img_12.png)
 
-## 11. CI/CD Setup
+## 10. CI/CD-Setup
 
-### 11.1 Backend CI
+### 10.1 Backend CI
 
 Datei: `.github/workflows/backendCi.yml`
 
@@ -407,7 +416,7 @@ Datei: `.github/workflows/backendCi.yml`
 - Setup: Ubuntu Runner, Checkout, Java 25 mit Temurin, Maven Cache.
 - Schritt: `./mvnw -B verify`.
 
-### 11.2 Backend CD
+### 10.2 Backend CD
 
 Datei: `.github/workflows/backendCd.yml`
 
@@ -418,10 +427,10 @@ Datei: `.github/workflows/backendCd.yml`
   - kopiert `compose.yaml` und Flyway-Migrationen per SSH/SCP auf den Server,
   - erzeugt `.env` aus GitHub Secrets,
   - startet PostgreSQL,
-  - fuehrt Flyway-Migrationen aus,
+  - führt Flyway-Migrationen aus,
   - deployed das Backend per Docker Compose.
 
-### 11.3 Frontend CI
+### 10.3 Frontend CI
 
 Datei: `.github/workflows/ci.yml`
 
@@ -434,7 +443,7 @@ Datei: `.github/workflows/ci.yml`
   - `npm run test:unit`
   - `npm run build`
 
-### 11.4 Frontend CD
+### 10.4 Frontend CD
 
 Datei: `.github/workflows/frontendCd.yml`
 
@@ -444,17 +453,10 @@ Datei: `.github/workflows/frontendCd.yml`
 - Push nach GitHub Container Registry mit Tags `latest` und Kurz-SHA.
 - Deployment per SSH und Docker Compose.
 
-## 12. Gelerntes im Projekt
+## 11. Gelerntes im Projekt
 
 - Abstimmung von Frontend-DTOs und Backend-API ist entscheidend, um Integrationsfehler zu vermeiden.
-- Datenbankmigrationen muessen frueh sauber gepflegt werden, da nachtraegliche Schemaaenderungen sonst teuer werden.
-- CI/CD lohnt sich besonders bei getrennten Frontend-/Backend-Repositories.
-- Authentifizierung sollte fuer lokale Entwicklung bewusst vereinfacht werden, ohne die produktive Sicherheit zu entfernen.
+- Authentifizierung sollte für lokale Entwicklung bewusst vereinfacht werden, ohne die produktive Sicherheit zu entfernen.
 - Feature-basierte Struktur hilft bei wachsenden Vue-Anwendungen.
 - Gute Tests für Services und Stores fangen viele Fehler ab, bevor sie in der UI sichtbar werden.
-
-## 14. Offene To-dos fuer das finale Handout
-
-- [ ] Echte Coverage-Werte messen und eintragen.
-- ERM einfügen
-- [ ] Rechtschreibung/Formatierung fuer finale PDF-/Print-Version pruefen.
+- Regelmäßige Reviews und Pair Programming fördern den Wissensaustausch und die Codequalität.
